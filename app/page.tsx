@@ -11,30 +11,10 @@ const fadeIn: Variants = {
   }),
 };
 
-const infoCards = [
-  {
-    icon: "🕗",
-    title: "שעות פעילות",
-    description: "ימים א׳–ה׳\n07:45 – 15:30",
-    color: "#E8C870",
-  },
-  {
-    icon: "",
-    title: "כתובת",
-    description: "העצמאות 63\nאשדוד",
-    color: "#A8D5A2",
-  },
-  {
-    icon: "📢",
-    title: "הודעות",
-    description: "הרשמה לשנת הלימודים\nתשפ״ז פתוחה!",
-    color: "#F4A4A4",
-  },
-];
+
 
 const values = [
   {
-    icon: "🌟",
     title: "מצוינות",
     text: "שאיפה מתמדת להישגים גבוהים ולצמיחה אישית",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
@@ -43,7 +23,6 @@ const values = [
     image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop&q=80",
   },
   {
-    icon: "💛",
     title: "נשמה",
     text: "חינוך מלב אל לב, עם חמימות ואכפתיות",
     gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
@@ -52,7 +31,6 @@ const values = [
     image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=300&fit=crop&q=80",
   },
   {
-    icon: "🤝",
     title: "קהילתיות",
     text: "שותפות בין תלמידים, מורים והורים",
     gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
@@ -61,7 +39,6 @@ const values = [
     image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=300&fit=crop&q=80",
   },
   {
-    icon: "🎨",
     title: "יצירתיות",
     text: "עידוד חשיבה יוצרת וביטוי אישי",
     gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
@@ -105,15 +82,15 @@ export default function Home() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="relative z-10 flex flex-col items-center text-center"
         >
-          {/* School Logo Placeholder */}
+          {/* School Logo */}
           <div
-            className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 mb-8 rounded-full flex items-center justify-center"
+            className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 mb-8 rounded-full overflow-hidden flex items-center justify-center"
             style={{
               background: "linear-gradient(135deg, #FFFFFF 0%, #F5E6C8 100%)",
               boxShadow: "0 8px 40px rgba(27, 58, 92, 0.15), 0 0 0 4px rgba(212, 168, 67, 0.3)",
             }}
           >
-            <span className="text-7xl sm:text-8xl md:text-9xl">🏫</span>
+            <img src="/school-logo.jpg" alt="לוגו בית חינוך הקריה" className="w-full h-full object-cover" />
           </div>
 
           {/* Main Title */}
@@ -258,17 +235,6 @@ export default function Home() {
                       background: `linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 60%), ${value.bgPattern}`,
                     }}
                   />
-                  {/* Floating icon */}
-                  <motion.div
-                    className="absolute bottom-[-20px] right-4 w-14 h-14 rounded-2xl flex items-center justify-center text-3xl z-10"
-                    style={{
-                      background: value.gradient,
-                      boxShadow: `0 8px 24px ${value.accentColor}40`,
-                    }}
-                    whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.5 } }}
-                  >
-                    {value.icon}
-                  </motion.div>
                 </div>
 
                 {/* Content */}
@@ -292,54 +258,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Info Cards Section ===== */}
-      <section className="py-20 sm:py-24 px-4" style={{ backgroundColor: "#FFFFFF" }}>
-        <div className="mx-auto max-w-5xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-14"
-          >
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3" style={{ color: "#1B3A5C" }}>
-              מידע שימושי
-            </h2>
-            <hr className="divider-gradient w-24 mx-auto" />
-          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            {infoCards.map((card, index) => (
-              <motion.div
-                key={card.title}
-                custom={index}
-                variants={fadeIn}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                className="card-hover rounded-2xl p-8 text-center relative overflow-hidden"
-                style={{
-                  backgroundColor: "#FDF6E3",
-                  border: "1px solid #E8DCC8",
-                  boxShadow: "0 2px 12px rgba(27, 58, 92, 0.06)",
-                }}
-              >
-                {/* Color accent strip at top */}
-                <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ backgroundColor: card.color }} />
-                <div className="w-16 h-16 rounded-2xl mx-auto mb-5 flex items-center justify-center text-4xl" style={{ backgroundColor: `${card.color}20` }}>
-                  {card.icon}
-                </div>
-                <h3 className="font-heading text-lg font-bold mb-3" style={{ color: "#1B3A5C" }}>
-                  {card.title}
-                </h3>
-                <p className="text-sm whitespace-pre-line leading-relaxed" style={{ color: "#5A5A5A" }}>
-                  {card.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
