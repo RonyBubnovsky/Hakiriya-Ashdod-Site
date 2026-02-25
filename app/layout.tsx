@@ -3,7 +3,7 @@ import { Heebo, Rubik, Amatic_SC, Secular_One, Suez_One, Frank_Ruhl_Libre, Varel
 import "./globals.css";
 import Navbar from "./components/Navbar";
 
-const SITE_URL = "https://hakiriya-ashdod.co.il";
+const SITE_URL = "https://hakiriya-ashdod.vercel.app";
 const SITE_NAME = "בית חינוך הקריה – אשדוד";
 
 const heebo = Heebo({

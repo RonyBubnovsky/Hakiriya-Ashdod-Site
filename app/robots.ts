@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/_next/"],
       },
     ],
-    sitemap: "https://hakiriya-ashdod.co.il/sitemap.xml",
+    sitemap: "https://hakiriya-ashdod.vercel.app/sitemap.xml",
   };
 }
