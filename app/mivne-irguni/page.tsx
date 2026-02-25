@@ -25,7 +25,7 @@ const cards = [
     image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&h=400&fit=crop&q=80",
   },
   {
-    lines: ["מעקב ובקרה", "רצופים"],
+    lines: ["מעקב ובקרה", "רציפים"],
     gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
     shadowColor: "rgba(79, 172, 254, 0.35)",
     image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop&q=80",
