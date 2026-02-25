@@ -18,19 +18,19 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 z-50 border-b-2 border-accent/30" style={{ backgroundColor: '#1B3A5C' }}>
+    <nav className="sticky top-0 z-50 border-b-2 border-accent/30" style={{ backgroundColor: '#1B3A5C' }} aria-label="ניווט ראשי">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 sm:h-18 items-center justify-between">
           {/* Logo + Name */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-accent/50 overflow-hidden transition-transform duration-300 group-hover:scale-105">
-              <img src="/school-logo.jpg" alt="לוגו בית חינוך הקריה" className="w-full h-full object-contain" />
+              <img src="/school-logo.jpg" alt="לוגו בית חינוך הקריה אשדוד" className="w-full h-full object-contain" />
             </div>
             <div>
-              <h1 className="font-heading text-base sm:text-lg font-bold text-white leading-tight">
+              <span className="font-heading text-base sm:text-lg font-bold text-white leading-tight block">
                 בית חינוך הקריה
-              </h1>
-              <p className="text-[10px] sm:text-xs text-accent-light tracking-wide">אשדוד</p>
+              </span>
+              <span className="text-[10px] sm:text-xs text-accent-light tracking-wide block">העצמאות 63, אשדוד</span>
             </div>
           </Link>
 

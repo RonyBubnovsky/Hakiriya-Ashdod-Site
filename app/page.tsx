@@ -127,7 +127,7 @@ export default function Home() {
       </section>
 
       {/* ===== Welcome Section ===== */}
-      <section id="about" className="py-20 sm:py-24 px-4" style={{ backgroundColor: "#FFFFFF" }}>
+      <section id="about" className="section-glass py-20 sm:py-24 px-4">
         <div className="mx-auto max-w-4xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

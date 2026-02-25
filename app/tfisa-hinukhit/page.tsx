@@ -69,7 +69,7 @@ export default function TfisaHinukhit() {
       </section>
 
       {/* ===== Main Proverb Section ===== */}
-      <section className="py-16 sm:py-24 px-4" style={{ backgroundColor: "#FFFFFF" }}>
+      <section className="section-glass py-16 sm:py-24 px-4">
         <div className="mx-auto max-w-6xl">
           {/* Proverb with image - alternating layout */}
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
