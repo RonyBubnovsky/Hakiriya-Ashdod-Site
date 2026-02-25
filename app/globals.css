@@ -48,6 +48,14 @@ body {
   font-family: var(--font-rubik), 'Rubik', sans-serif;
 }
 
+.font-display {
+  font-family: var(--font-secular), 'Secular One', sans-serif;
+}
+
+.font-elegant {
+  font-family: var(--font-suez), 'Suez One', serif;
+}
+
 /* ===== Gradient divider ===== */
 .divider-gradient {
   height: 3px;
