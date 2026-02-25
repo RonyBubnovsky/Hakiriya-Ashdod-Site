@@ -56,6 +56,14 @@ body {
   font-family: var(--font-suez), 'Suez One', serif;
 }
 
+.font-classic {
+  font-family: var(--font-frank), 'Frank Ruhl Libre', serif;
+}
+
+.font-rounded {
+  font-family: var(--font-varela), 'Varela Round', sans-serif;
+}
+
 /* ===== Gradient divider ===== */
 .divider-gradient {
   height: 3px;

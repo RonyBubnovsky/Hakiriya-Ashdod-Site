@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Heebo, Rubik, Amatic_SC, Secular_One, Suez_One } from "next/font/google";
+import { Heebo, Rubik, Amatic_SC, Secular_One, Suez_One, Frank_Ruhl_Libre, Varela_Round } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 
@@ -36,6 +36,20 @@ const suezOne = Suez_One({
   display: "swap",
 });
 
+const frankRuhl = Frank_Ruhl_Libre({
+  weight: ["400", "700"],
+  subsets: ["hebrew", "latin"],
+  variable: "--font-frank",
+  display: "swap",
+});
+
+const varelaRound = Varela_Round({
+  weight: "400",
+  subsets: ["hebrew", "latin"],
+  variable: "--font-varela",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "בית חינוך הקריה | אשדוד",
   description:
@@ -51,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body
-        className={`${heebo.variable} ${rubik.variable} ${amatic.variable} ${secularOne.variable} ${suezOne.variable} antialiased`}
+        className={`${heebo.variable} ${rubik.variable} ${amatic.variable} ${secularOne.variable} ${suezOne.variable} ${frankRuhl.variable} ${varelaRound.variable} antialiased`}
       >
         <Navbar />
         <main>{children}</main>
