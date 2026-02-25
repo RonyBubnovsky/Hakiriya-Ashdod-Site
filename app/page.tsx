@@ -70,11 +70,7 @@ export default function Home() {
           background: "linear-gradient(165deg, #FDF6E3 0%, #FAF0D7 40%, #F5E6C8 100%)",
         }}
       >
-        {/* Decorative elements */}
-        <div className="absolute top-20 left-16 w-72 h-72 rounded-full opacity-30" style={{ background: "radial-gradient(circle, #D4A843 0%, transparent 70%)" }} />
-        <div className="absolute bottom-20 right-16 w-96 h-96 rounded-full opacity-20" style={{ background: "radial-gradient(circle, #1B3A5C 0%, transparent 70%)" }} />
-        <div className="absolute top-1/3 right-1/4 w-4 h-4 rounded-full bg-accent/40" />
-        <div className="absolute bottom-1/3 left-1/3 w-3 h-3 rounded-full bg-primary/30" />
+
 
         <motion.div
           initial={{ opacity: 0, scale: 0.85 }}
@@ -86,11 +82,11 @@ export default function Home() {
           <div
             className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 mb-8 rounded-full overflow-hidden flex items-center justify-center"
             style={{
-              background: "linear-gradient(135deg, #FFFFFF 0%, #F5E6C8 100%)",
+              background: "#FFFFFF",
               boxShadow: "0 8px 40px rgba(27, 58, 92, 0.15), 0 0 0 4px rgba(212, 168, 67, 0.3)",
             }}
           >
-            <img src="/school-logo.jpg" alt="לוגו בית חינוך הקריה" className="w-full h-full object-cover" />
+            <img src="/school-logo.jpg" alt="לוגו בית חינוך הקריה" className="w-[85%] h-[85%] object-contain" />
           </div>
 
           {/* Main Title */}

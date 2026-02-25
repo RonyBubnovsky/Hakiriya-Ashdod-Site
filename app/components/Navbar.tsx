@@ -22,8 +22,8 @@ export default function Navbar() {
         <div className="flex h-16 sm:h-18 items-center justify-between">
           {/* Logo + Name */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 border-2 border-accent/50 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-              <span className="text-xl sm:text-2xl">🏫</span>
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white border-2 border-accent/50 overflow-hidden transition-transform duration-300 group-hover:scale-105">
+              <img src="/school-logo.jpg" alt="לוגו בית חינוך הקריה" className="w-full h-full object-contain" />
             </div>
             <div>
               <h1 className="font-heading text-base sm:text-lg font-bold text-white leading-tight">
