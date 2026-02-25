@@ -30,7 +30,7 @@ export default function Navbar() {
               <span className="font-heading text-base sm:text-lg font-bold text-white leading-tight block">
                 בית חינוך הקריה
               </span>
-              <span className="text-[10px] sm:text-xs text-accent-light tracking-wide block">אשדוד</span>
+              <span className="text-[10px] sm:text-xs text-accent-light tracking-wide block">העצמאות 63, אשדוד</span>
             </div>
           </Link>
 

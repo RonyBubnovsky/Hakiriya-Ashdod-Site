@@ -159,6 +159,7 @@ const jsonLd = {
     "בית חינוך הקריה – בית ספר יסודי תורני מדעי טכנולוגי באשדוד. חינוך למצוינות עם נשמה.",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "העצמאות 63",
     addressLocality: "אשדוד",
     addressCountry: "IL",
   },
@@ -251,6 +252,9 @@ export default function RootLayout({
             </p>
             <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.7)" }}>
               בית ספר יסודי תורני מדעי טכנולוגי
+            </p>
+            <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.7)" }}>
+              רח׳ העצמאות 63, אשדוד
             </p>
             <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>
               חינוך למצוינות עם נשמה
