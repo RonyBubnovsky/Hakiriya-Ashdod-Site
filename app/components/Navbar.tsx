@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/mivne-irguni", label: "מבנה ארגוני" },
   { href: "/tfisa-hinukhit", label: "תפיסה חינוכית" },
   { href: "/yozamot", label: "יוזמות ותוכניות ייחודיות" },
+  { href: "/yeadim", label: "יעדים לשנה״ל תשפ״ו" },
 ];
 
 export default function Navbar() {
