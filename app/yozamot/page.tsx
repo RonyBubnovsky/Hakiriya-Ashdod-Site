@@ -38,6 +38,7 @@ const initiatives = [
     borderColor: "rgba(79, 172, 254, 0.4)",
     image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=400&fit=crop&q=80",
     fontClass: "font-elegant",
+    sameSize: true,
   },
   {
     title: "נושאים ייחודיים",
@@ -193,7 +194,11 @@ export default function Yozamot() {
                     </p>
                     {item.subtitle && (
                       <p
-                        className="font-rounded text-xs sm:text-sm md:text-base text-white/90 mt-1 sm:mt-2"
+                        className={`${
+                          item.sameSize
+                            ? `${item.fontClass} text-lg sm:text-xl md:text-2xl`
+                            : "font-rounded text-xs sm:text-sm md:text-base"
+                        } text-white/90 mt-1 sm:mt-2`}
                         style={{
                           textShadow: "0 1px 8px rgba(0,0,0,0.3)",
                         }}
@@ -271,7 +276,11 @@ export default function Yozamot() {
                     </p>
                     {item.subtitle && (
                       <p
-                        className="font-rounded text-xs sm:text-sm md:text-base text-white/90 mt-1 sm:mt-2"
+                        className={`${
+                          item.sameSize
+                            ? `${item.fontClass} text-lg sm:text-xl md:text-2xl`
+                            : "font-rounded text-xs sm:text-sm md:text-base"
+                        } text-white/90 mt-1 sm:mt-2`}
                         style={{
                           textShadow: "0 1px 8px rgba(0,0,0,0.3)",
                         }}
