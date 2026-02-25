@@ -136,7 +136,7 @@ export default function Yozamot() {
       </section>
 
       {/* ===== Circles Section ===== */}
-      <section className="py-16 sm:py-24 px-4" style={{ backgroundColor: "#FFFFFF" }}>
+      <section className="section-glass py-16 sm:py-24 px-4">
         <div className="mx-auto max-w-6xl">
           {/* Row 1 - 4 circles */}
           <div className="flex flex-wrap justify-center gap-8 sm:gap-10 lg:gap-14 mb-8 sm:mb-10 lg:mb-14">

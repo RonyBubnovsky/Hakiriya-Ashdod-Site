@@ -125,7 +125,7 @@ export default function MivneIrguni() {
       </section>
 
       {/* ===== Hierarchy Flow Section ===== */}
-      <section className="py-16 sm:py-20 px-4" style={{ backgroundColor: "#FFFFFF" }}>
+      <section className="section-glass py-16 sm:py-20 px-4">
         <div className="mx-auto max-w-3xl">
           <div className="flex flex-col items-center gap-0">
             {hierarchySteps.map((step, index) => (
@@ -324,7 +324,7 @@ export default function MivneIrguni() {
       </section>
 
       {/* ===== Bottom decorative quote ===== */}
-      <section className="py-16 sm:py-20 px-4" style={{ backgroundColor: "#FFFFFF" }}>
+      <section className="section-glass py-16 sm:py-20 px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -125,7 +125,7 @@ export default function Yeadim() {
       </section>
 
       {/* ===== Goals Section ===== */}
-      <section className="py-16 sm:py-24 px-4" style={{ backgroundColor: "#FFFFFF" }}>
+      <section className="section-glass py-16 sm:py-24 px-4">
         <div className="mx-auto max-w-5xl flex flex-col gap-10 sm:gap-14">
           {goals.map((goal, index) => {
             const isEven = index % 2 === 0;
