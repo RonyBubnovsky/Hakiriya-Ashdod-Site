@@ -1,65 +1,345 @@
-import Image from "next/image";
+"use client";
+
+import { motion, type Variants } from "framer-motion";
+
+const fadeIn: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.15, duration: 0.6, ease: "easeOut" },
+  }),
+};
+
+const infoCards = [
+  {
+    icon: "🕗",
+    title: "שעות פעילות",
+    description: "ימים א׳–ה׳\n07:45 – 15:30",
+    color: "#E8C870",
+  },
+  {
+    icon: "",
+    title: "כתובת",
+    description: "העצמאות 63\nאשדוד",
+    color: "#A8D5A2",
+  },
+  {
+    icon: "📢",
+    title: "הודעות",
+    description: "הרשמה לשנת הלימודים\nתשפ״ז פתוחה!",
+    color: "#F4A4A4",
+  },
+];
+
+const values = [
+  {
+    icon: "🌟",
+    title: "מצוינות",
+    text: "שאיפה מתמדת להישגים גבוהים ולצמיחה אישית",
+    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    accentColor: "#764ba2",
+    bgPattern: "radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.15) 0%, transparent 50%)",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop&q=80",
+  },
+  {
+    icon: "💛",
+    title: "נשמה",
+    text: "חינוך מלב אל לב, עם חמימות ואכפתיות",
+    gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+    accentColor: "#f5576c",
+    bgPattern: "radial-gradient(circle at 80% 20%, rgba(245, 87, 108, 0.15) 0%, transparent 50%)",
+    image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=300&fit=crop&q=80",
+  },
+  {
+    icon: "🤝",
+    title: "קהילתיות",
+    text: "שותפות בין תלמידים, מורים והורים",
+    gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+    accentColor: "#4facfe",
+    bgPattern: "radial-gradient(circle at 50% 50%, rgba(79, 172, 254, 0.15) 0%, transparent 50%)",
+    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=300&fit=crop&q=80",
+  },
+  {
+    icon: "🎨",
+    title: "יצירתיות",
+    text: "עידוד חשיבה יוצרת וביטוי אישי",
+    gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+    accentColor: "#43e97b",
+    bgPattern: "radial-gradient(circle at 30% 70%, rgba(67, 233, 123, 0.15) 0%, transparent 50%)",
+    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=300&fit=crop&q=80",
+  },
+];
+
+const floatingVariants: Variants = {
+  animate: (i: number) => ({
+    y: [0, -15, 0],
+    x: [0, i % 2 === 0 ? 8 : -8, 0],
+    transition: {
+      duration: 4 + i,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  }),
+};
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="overflow-hidden">
+      {/* ===== Hero Section ===== */}
+      <section
+        className="relative min-h-[85vh] flex flex-col items-center justify-center px-4 py-20"
+        style={{
+          background: "linear-gradient(165deg, #FDF6E3 0%, #FAF0D7 40%, #F5E6C8 100%)",
+        }}
+      >
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-16 w-72 h-72 rounded-full opacity-30" style={{ background: "radial-gradient(circle, #D4A843 0%, transparent 70%)" }} />
+        <div className="absolute bottom-20 right-16 w-96 h-96 rounded-full opacity-20" style={{ background: "radial-gradient(circle, #1B3A5C 0%, transparent 70%)" }} />
+        <div className="absolute top-1/3 right-1/4 w-4 h-4 rounded-full bg-accent/40" />
+        <div className="absolute bottom-1/3 left-1/3 w-3 h-3 rounded-full bg-primary/30" />
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative z-10 flex flex-col items-center text-center"
+        >
+          {/* School Logo Placeholder */}
+          <div
+            className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 mb-8 rounded-full flex items-center justify-center"
+            style={{
+              background: "linear-gradient(135deg, #FFFFFF 0%, #F5E6C8 100%)",
+              boxShadow: "0 8px 40px rgba(27, 58, 92, 0.15), 0 0 0 4px rgba(212, 168, 67, 0.3)",
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <span className="text-7xl sm:text-8xl md:text-9xl">🏫</span>
+          </div>
+
+          {/* Main Title */}
+          <motion.h1
+            custom={1}
+            variants={fadeIn}
+            initial="hidden"
+            animate="visible"
+            className="font-heading text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight"
+            style={{ color: "#1B3A5C" }}
           >
-            Documentation
-          </a>
+            בית חינוך הקריה
+          </motion.h1>
+
+          {/* Subtitle - Handwriting style */}
+          <motion.p
+            custom={2}
+            variants={fadeIn}
+            initial="hidden"
+            animate="visible"
+            className="font-handwriting text-4xl sm:text-5xl md:text-6xl font-bold mt-4"
+            style={{ color: "#B8912E" }}
+          >
+            חינוך למצוינות עם נשמה
+          </motion.p>
+
+          {/* Decorative divider */}
+          <motion.div
+            custom={3}
+            variants={fadeIn}
+            initial="hidden"
+            animate="visible"
+            className="w-40 mt-10"
+          >
+            <hr className="divider-gradient" />
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ===== Welcome Section ===== */}
+      <section id="about" className="py-20 sm:py-24 px-4" style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="mx-auto max-w-4xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
+          >
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3" style={{ color: "#1B3A5C" }}>
+              ברוכים הבאים
+            </h2>
+            <hr className="divider-gradient w-24 mx-auto mb-10" />
+            <p className="text-lg sm:text-xl leading-[1.9] max-w-2xl mx-auto" style={{ color: "#5A5A5A" }}>
+              בית חינוך הקריה הוא בית ספר יסודי בלב העיר אשדוד, 
+              המחנך לערכים של <strong style={{ color: "#1B3A5C" }}>מצוינות</strong>, <strong style={{ color: "#1B3A5C" }}>יצירתיות</strong> ו<strong style={{ color: "#1B3A5C" }}>אכפתיות</strong>. 
+              אנו מאמינים שכל ילד וילדה הם עולם ומלואו, 
+              ושואפים להעניק לכל תלמיד את הכלים להצליח ולצמוח.
+            </p>
+          </motion.div>
         </div>
-      </main>
+      </section>
+
+      {/* ===== Values Section – Redesigned ===== */}
+      <section className="values-section py-20 sm:py-28 px-4 relative overflow-hidden">
+        {/* Floating decorative elements */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            custom={i}
+            variants={floatingVariants}
+            animate="animate"
+            className="absolute rounded-full opacity-20 pointer-events-none"
+            style={{
+              width: `${20 + i * 15}px`,
+              height: `${20 + i * 15}px`,
+              background: i % 2 === 0
+                ? "linear-gradient(135deg, #D4A843, #E8C870)"
+                : "linear-gradient(135deg, #1B3A5C, #2A5580)",
+              top: `${10 + i * 14}%`,
+              left: `${5 + i * 16}%`,
+            }}
+          />
+        ))}
+
+        <div className="mx-auto max-w-6xl relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3" style={{ color: "#1B3A5C" }}>
+              הערכים שלנו
+            </h2>
+            <hr className="divider-gradient w-24 mx-auto mb-4" />
+            <p className="text-base sm:text-lg mt-4 max-w-xl mx-auto" style={{ color: "#5A5A5A" }}>
+              הערכים המנחים אותנו בדרך לחינוך מיטבי
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value, index) => (
+              <motion.div
+                key={value.title}
+                custom={index}
+                variants={fadeIn}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                whileHover={{ 
+                  y: -12, 
+                  scale: 1.03,
+                  transition: { duration: 0.3, ease: "easeOut" }
+                }}
+                className="values-card group rounded-3xl overflow-hidden relative"
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  boxShadow: "0 4px 20px rgba(27, 58, 92, 0.08)",
+                }}
+              >
+                {/* Top accent gradient bar */}
+                <div 
+                  className="h-1.5 w-full" 
+                  style={{ background: value.gradient }} 
+                />
+
+                {/* Image area */}
+                <div className="relative h-44 overflow-hidden">
+                  <div
+                    className="absolute inset-0 transition-transform duration-700 group-hover:scale-110"
+                    style={{
+                      backgroundImage: `url(${value.image})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  />
+                  {/* Image overlay with gradient */}
+                  <div 
+                    className="absolute inset-0"
+                    style={{
+                      background: `linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 60%), ${value.bgPattern}`,
+                    }}
+                  />
+                  {/* Floating icon */}
+                  <motion.div
+                    className="absolute bottom-[-20px] right-4 w-14 h-14 rounded-2xl flex items-center justify-center text-3xl z-10"
+                    style={{
+                      background: value.gradient,
+                      boxShadow: `0 8px 24px ${value.accentColor}40`,
+                    }}
+                    whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.5 } }}
+                  >
+                    {value.icon}
+                  </motion.div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6 pt-5">
+                  <h3 className="font-heading text-xl font-bold mb-2" style={{ color: "#1B3A5C" }}>
+                    {value.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "#5A5A5A" }}>
+                    {value.text}
+                  </p>
+                </div>
+
+                {/* Bottom decorative element */}
+                <div 
+                  className="h-0.5 mx-6 mb-5 rounded-full opacity-30"
+                  style={{ background: value.gradient }}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Info Cards Section ===== */}
+      <section className="py-20 sm:py-24 px-4" style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="mx-auto max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-14"
+          >
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3" style={{ color: "#1B3A5C" }}>
+              מידע שימושי
+            </h2>
+            <hr className="divider-gradient w-24 mx-auto" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            {infoCards.map((card, index) => (
+              <motion.div
+                key={card.title}
+                custom={index}
+                variants={fadeIn}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                className="card-hover rounded-2xl p-8 text-center relative overflow-hidden"
+                style={{
+                  backgroundColor: "#FDF6E3",
+                  border: "1px solid #E8DCC8",
+                  boxShadow: "0 2px 12px rgba(27, 58, 92, 0.06)",
+                }}
+              >
+                {/* Color accent strip at top */}
+                <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ backgroundColor: card.color }} />
+                <div className="w-16 h-16 rounded-2xl mx-auto mb-5 flex items-center justify-center text-4xl" style={{ backgroundColor: `${card.color}20` }}>
+                  {card.icon}
+                </div>
+                <h3 className="font-heading text-lg font-bold mb-3" style={{ color: "#1B3A5C" }}>
+                  {card.title}
+                </h3>
+                <p className="text-sm whitespace-pre-line leading-relaxed" style={{ color: "#5A5A5A" }}>
+                  {card.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

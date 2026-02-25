@@ -1,26 +1,120 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ===== Tailwind v4 Theme – בית חינוך הקריה ===== */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: #FDF6E3;
+  --color-bg-light: #FAF0D7;
+  --color-bg-warm: #F5E6C8;
+  --color-bg-card: #FFFFFF;
+  --color-primary: #1B3A5C;
+  --color-primary-light: #2A5580;
+  --color-primary-dark: #122840;
+  --color-accent: #D4A843;
+  --color-accent-light: #E8C870;
+  --color-accent-dark: #B8912E;
+  --color-text: #2D2D2D;
+  --color-text-light: #5A5A5A;
+  --color-text-muted: #8A8A8A;
+  --color-border: #E8DCC8;
+  --color-border-light: #F0E8D8;
+  --color-white: #FFFFFF;
+  --color-success: #4CAF50;
+  --font-heebo: var(--font-heebo);
+  --font-rubik: var(--font-rubik);
+  --font-amatic: var(--font-amatic);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ===== Base ===== */
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #FDF6E3;
+  color: #2D2D2D;
+  font-family: var(--font-heebo), 'Heebo', Arial, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Font utilities ===== */
+.font-handwriting {
+  font-family: var(--font-amatic), 'Amatic SC', cursive;
+}
+
+.font-heading {
+  font-family: var(--font-rubik), 'Rubik', sans-serif;
+}
+
+/* ===== Gradient divider ===== */
+.divider-gradient {
+  height: 3px;
+  background: linear-gradient(
+    to left,
+    #D4A843,
+    #1B3A5C,
+    #D4A843
+  );
+  border: none;
+  border-radius: 9999px;
+}
+
+/* ===== Card hover effect ===== */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(27, 58, 92, 0.15);
+}
+
+/* ===== Values Section ===== */
+.values-section {
+  background: linear-gradient(165deg, #FAF0D7 0%, #F5E6C8 40%, #FDF6E3 100%);
+}
+
+.values-card {
+  transition: box-shadow 0.4s ease;
+}
+.values-card:hover {
+  box-shadow: 0 20px 50px rgba(27, 58, 92, 0.18) !important;
+}
+
+/* ===== Gold underline accent ===== */
+.accent-underline {
+  position: relative;
+  display: inline-block;
+}
+.accent-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  right: 0;
+  width: 60%;
+  height: 3px;
+  background: #D4A843;
+  border-radius: 9999px;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF0D7;
+}
+::-webkit-scrollbar-thumb {
+  background: #1B3A5C;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2A5580;
+}
+
+/* ===== Selection ===== */
+::selection {
+  background-color: #D4A843;
+  color: #FFFFFF;
 }
