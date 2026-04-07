@@ -24,7 +24,7 @@ const initiatives = [
     title: "סייבר",
     subtitle: "ג-ד / ה-ו",
     image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=500&fit=crop&q=80",
-    description: "תוכנית להקניית מיומנויות דיגיטליות ואבטחת מידע לתלמידים בכל השכבות.",
+    description: "תוכנית להקניית מיומנויות דיגיטליות ואבטחת מידע לתלמידים בשכבות ג-ו.",
     shape: "polygon(0% 0%, 100% 0%, 100% 75%, 50% 100%, 0% 75%)", // Shield
   },
   {
