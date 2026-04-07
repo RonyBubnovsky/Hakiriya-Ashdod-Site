@@ -41,3 +41,6 @@ site-instructions.md
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+skills/
+AGENTS.md

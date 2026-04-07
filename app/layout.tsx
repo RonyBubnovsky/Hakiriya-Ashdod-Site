@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Heebo, Rubik, Amatic_SC, Secular_One, Suez_One, Frank_Ruhl_Libre, Varela_Round } from "next/font/google";
+import { Heebo, Secular_One, Syne, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import GrainOverlay from "./components/GrainOverlay";
 
 const SITE_URL = "https://hakiriya-ashdod.vercel.app";
 const SITE_NAME = "בית חינוך הקריה – אשדוד";
@@ -12,19 +13,6 @@ const heebo = Heebo({
   display: "swap",
 });
 
-const rubik = Rubik({
-  subsets: ["hebrew", "latin"],
-  variable: "--font-rubik",
-  display: "swap",
-});
-
-const amatic = Amatic_SC({
-  weight: ["400", "700"],
-  subsets: ["hebrew", "latin"],
-  variable: "--font-amatic",
-  display: "swap",
-});
-
 const secularOne = Secular_One({
   weight: "400",
   subsets: ["hebrew", "latin"],
@@ -32,24 +20,15 @@ const secularOne = Secular_One({
   display: "swap",
 });
 
-const suezOne = Suez_One({
-  weight: "400",
-  subsets: ["hebrew", "latin"],
-  variable: "--font-suez",
+const syne = Syne({
+  subsets: ["latin"],
+  variable: "--font-syne",
   display: "swap",
 });
 
-const frankRuhl = Frank_Ruhl_Libre({
-  weight: ["400", "700"],
-  subsets: ["hebrew", "latin"],
-  variable: "--font-frank",
-  display: "swap",
-});
-
-const varelaRound = Varela_Round({
-  weight: "400",
-  subsets: ["hebrew", "latin"],
-  variable: "--font-varela",
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
@@ -57,7 +36,7 @@ const varelaRound = Varela_Round({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#1B3A5C",
+  themeColor: "#1A1A1A",
 };
 
 /* ===== Global Metadata ===== */
@@ -230,43 +209,47 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${heebo.variable} ${rubik.variable} ${amatic.variable} ${secularOne.variable} ${suezOne.variable} ${frankRuhl.variable} ${varelaRound.variable} antialiased`}
+        className={`${heebo.variable} ${secularOne.variable} ${syne.variable} ${spaceGrotesk.variable} antialiased`}
       >
+        <GrainOverlay />
         <Navbar />
         <main>{children}</main>
 
-        {/* ===== Footer with SEO-rich content ===== */}
+        {/* ===== Footer — Editorial ===== */}
         <footer
-          className="py-10 px-4 text-center border-t-2"
+          className="py-12 px-4 border-t"
           style={{
-            backgroundColor: "#1B3A5C",
-            borderColor: "rgba(212, 168, 67, 0.3)",
+            backgroundColor: "#1A1A1A",
+            borderColor: "rgba(232, 80, 58, 0.2)",
           }}
         >
-          <div className="mx-auto max-w-4xl">
-            <p
-              className="font-heading text-lg font-bold mb-2"
-              style={{ color: "#E8C870" }}
-            >
-              בית חינוך הקריה – אשדוד
-            </p>
-            <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.7)" }}>
-              בית ספר יסודי תורני מדעי טכנולוגי
-            </p>
-            <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.7)" }}>
-              רח׳ העצמאות 63, אשדוד
-            </p>
-            <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>
-              חינוך למצוינות עם נשמה
-            </p>
-            <hr
-              className="w-16 mx-auto mb-4"
-              style={{ borderColor: "rgba(212, 168, 67, 0.3)" }}
-            />
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
-              © {new Date().getFullYear()} בית חינוך הקריה, אשדוד. כל הזכויות
-              שמורות.
-            </p>
+          <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="text-center sm:text-right">
+              <p
+                className="font-display text-lg font-bold mb-1"
+                style={{ color: "#FBFBFB" }}
+              >
+                בית חינוך הקריה - אשדוד
+              </p>
+              <p className="text-sm" style={{ color: "rgba(251,251,251,0.5)" }}>
+                בית ספר יסודי תורני מדעי טכנולוגי
+              </p>
+              <p className="text-sm" style={{ color: "rgba(251,251,251,0.5)" }}>
+                רח׳ העצמאות 63, אשדוד
+              </p>
+            </div>
+            <div className="text-center sm:text-left">
+              <p
+                className="font-syne text-xs tracking-[0.2em] uppercase mb-2"
+                style={{ color: "#E8503A" }}
+              >
+                חינוך למצוינות עם נשמה
+              </p>
+              <p className="text-xs" style={{ color: "rgba(251,251,251,0.3)" }}>
+                © {new Date().getFullYear()} בית חינוך הקריה, אשדוד. כל הזכויות
+                שמורות.
+              </p>
+            </div>
           </div>
         </footer>
       </body>
