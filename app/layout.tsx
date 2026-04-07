@@ -3,6 +3,7 @@ import { Heebo, Secular_One, Syne, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import GrainOverlay from "./components/GrainOverlay";
+import PageTransition from "./components/PageTransition";
 
 const SITE_URL = "https://hakiriya-ashdod.vercel.app";
 const SITE_NAME = "בית חינוך הקריה – אשדוד";
@@ -213,7 +214,7 @@ export default function RootLayout({
       >
         <GrainOverlay />
         <Navbar />
-        <main>{children}</main>
+        <main><PageTransition>{children}</PageTransition></main>
 
         {/* ===== Footer — Editorial ===== */}
         <footer
