@@ -1,27 +1,33 @@
 @import "tailwindcss";
 
-/* ===== Tailwind v4 Theme – בית חינוך הקריה ===== */
+/* ===== Tailwind v4 Theme – Neo-Grotesque Editorial System ===== */
 @theme inline {
-  --color-bg: #fdf6e3;
-  --color-bg-light: #faf0d7;
-  --color-bg-warm: #f5e6c8;
-  --color-bg-card: #ffffff;
-  --color-primary: #1b3a5c;
-  --color-primary-light: #2a5580;
-  --color-primary-dark: #122840;
-  --color-accent: #d4a843;
-  --color-accent-light: #e8c870;
-  --color-accent-dark: #b8912e;
-  --color-text: #2d2d2d;
-  --color-text-light: #5a5a5a;
-  --color-text-muted: #8a8a8a;
-  --color-border: #e8dcc8;
-  --color-border-light: #f0e8d8;
-  --color-white: #ffffff;
-  --color-success: #4caf50;
-  --font-heebo: var(--font-heebo);
-  --font-rubik: var(--font-rubik);
-  --font-amatic: var(--font-amatic);
+  /* — Surface palette — */
+  --color-surface: #FBFBFB;
+  --color-surface-dim: #F3F2EE;
+  --color-surface-dark: #1A1A1A;
+  --color-surface-ink: #2B2B2B;
+
+  /* — Text — */
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #555555;
+  --color-text-muted: #888888;
+  --color-text-inverse: #FBFBFB;
+
+  /* — Accent — */
+  --color-accent: #E8503A;
+  --color-accent-muted: #D4654F;
+  --color-accent-ochre: #C4A35A;
+
+  /* — Borders — */
+  --color-border: #E0DFDB;
+  --color-border-strong: #1A1A1A;
+
+  /* — Fonts — */
+  --font-display-he: var(--font-secular);
+  --font-body-he: var(--font-heebo);
+  --font-display-lat: var(--font-syne);
+  --font-body-lat: var(--font-space-grotesk);
 }
 
 /* ===== Base ===== */
@@ -31,158 +37,216 @@ html {
 }
 
 body {
-  background-color: #fdf6e3;
-  color: #2d2d2d;
-  font-family: var(--font-heebo), "Heebo", Arial, sans-serif;
+  background-color: #FBFBFB;
+  color: #1A1A1A;
+  font-family: var(--font-heebo), "Heebo", sans-serif;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== Font utilities ===== */
-.font-handwriting {
-  font-family: var(--font-amatic), "Amatic SC", cursive;
-}
-
-.font-heading {
-  font-family: var(--font-rubik), "Rubik", sans-serif;
-}
-
+/* ===== Font Utilities ===== */
 .font-display {
   font-family: var(--font-secular), "Secular One", sans-serif;
 }
 
-.font-elegant {
-  font-family: var(--font-suez), "Suez One", serif;
+.font-heading {
+  font-family: var(--font-secular), "Secular One", sans-serif;
 }
 
-.font-classic {
-  font-family: var(--font-frank), "Frank Ruhl Libre", serif;
+.font-syne {
+  font-family: var(--font-syne), "Syne", sans-serif;
 }
 
-.font-rounded {
-  font-family: var(--font-varela), "Varela Round", sans-serif;
+.font-space {
+  font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
 }
 
-/* ===== Gradient divider ===== */
-.divider-gradient {
-  height: 3px;
-  background: linear-gradient(to left, #d4a843, #1b3a5c, #d4a843);
+/* ===== Fluid Typography ===== */
+.text-fluid-hero {
+  font-size: clamp(2.8rem, 7vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.text-fluid-subtitle {
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  line-height: 1.3;
+}
+
+.text-fluid-section {
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+.text-fluid-value {
+  font-size: clamp(1.6rem, 3vw, 2.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.text-fluid-body {
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  line-height: 1.8;
+}
+
+/* ===== Editorial Divider ===== */
+.divider-editorial {
+  height: 2px;
+  background: #1A1A1A;
   border: none;
-  border-radius: 9999px;
 }
 
-/* ===== Card hover effect ===== */
-.card-hover {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-.card-hover:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(27, 58, 92, 0.15);
-}
-
-/* ===== Values Section ===== */
-.values-section {
-  background: linear-gradient(165deg, #faf0d7 0%, #f5e6c8 40%, #fdf6e3 100%);
-}
-
-.values-card {
-  transition: box-shadow 0.4s ease;
-}
-.values-card:hover {
-  box-shadow: 0 20px 50px rgba(27, 58, 92, 0.18) !important;
-}
-
-/* ===== Gold underline accent ===== */
-.accent-underline {
-  position: relative;
-  display: inline-block;
-}
-.accent-underline::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  right: 0;
-  width: 60%;
+.divider-accent {
   height: 3px;
-  background: #d4a843;
-  border-radius: 9999px;
+  background: #E8503A;
+  border: none;
 }
 
 /* ===== Scrollbar ===== */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #faf0d7;
+  background: #FBFBFB;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1b3a5c;
-  border-radius: 9999px;
+  background: #1A1A1A;
+  border-radius: 0;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a5580;
+  background: #555555;
 }
 
 /* ===== Selection ===== */
 ::selection {
-  background-color: #d4a843;
-  color: #ffffff;
+  background-color: #E8503A;
+  color: #FBFBFB;
 }
 
-/* ===== Premium Glass Section Background ===== */
-.section-glass {
+/* ===== Value tile overlay text ===== */
+.value-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* ===== Geometric grid for values (desktop) ===== */
+.values-grid-editorial {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.8fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  min-height: 70vh;
+}
+
+.values-grid-editorial > :nth-child(1) {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+  min-height: 380px;
+}
+
+.values-grid-editorial > :nth-child(2) {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+  min-height: 320px;
+}
+
+.values-grid-editorial > :nth-child(3) {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  min-height: 280px;
+}
+
+.values-grid-editorial > :nth-child(4) {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  min-height: 280px;
+}
+
+@media (max-width: 1023px) {
+  .values-grid-editorial {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    min-height: auto;
+  }
+
+  .values-grid-editorial > :nth-child(1) {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    min-height: 300px;
+  }
+
+  .values-grid-editorial > :nth-child(2) {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    min-height: 250px;
+  }
+
+  .values-grid-editorial > :nth-child(3) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    min-height: 250px;
+  }
+
+  .values-grid-editorial > :nth-child(4) {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 639px) {
+  .values-grid-editorial {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 0.75rem;
+  }
+
+  .values-grid-editorial > * {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    min-height: 280px !important;
+  }
+}
+
+/* ===== Value tile styling ===== */
+.value-tile {
   position: relative;
-  background:
-    radial-gradient(
-      ellipse 80% 60% at 15% 20%,
-      rgba(27, 58, 92, 0.045) 0%,
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 70% 50% at 85% 75%,
-      rgba(212, 168, 67, 0.04) 0%,
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 90% 80% at 50% 50%,
-      rgba(42, 85, 128, 0.02) 0%,
-      transparent 80%
-    ),
-    linear-gradient(
-      168deg,
-      #fefcf6 0%,
-      #faf5ea 25%,
-      #f8f1e2 50%,
-      #fbf6ed 75%,
-      #fefcf6 100%
-    );
   overflow: hidden;
+  cursor: default;
 }
 
-.section-glass::before {
+.value-tile::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(135deg, rgba(212, 168, 67, 0.06) 0%, transparent 40%),
-    linear-gradient(315deg, rgba(27, 58, 92, 0.05) 0%, transparent 40%);
-  pointer-events: none;
-}
-
-.section-glass::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(27, 58, 92, 0.008) 2px,
-    rgba(27, 58, 92, 0.008) 4px
+  background: linear-gradient(
+    to top,
+    rgba(26, 26, 26, 0.85) 0%,
+    rgba(26, 26, 26, 0.3) 40%,
+    transparent 70%
   );
+  transition: opacity 0.5s ease;
+}
+
+.value-tile:hover::after {
+  background: linear-gradient(
+    to top,
+    rgba(26, 26, 26, 0.7) 0%,
+    rgba(26, 26, 26, 0.15) 50%,
+    transparent 80%
+  );
+}
+
+/* ===== Noise texture for specific sections ===== */
+.noise-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
   pointer-events: none;
-  mix-blend-mode: multiply;
+  z-index: 1;
 }
