@@ -480,8 +480,8 @@ export default function TfisaHinukhit() {
       {/* ═══════ CLOSING QUOTE ═══════ */}
       <section className="relative py-20 sm:py-28 px-6 sm:px-10 bg-surface noise-bg overflow-hidden">
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display select-none pointer-events-none whitespace-nowrap hidden sm:block"
-          style={{ fontSize: "clamp(4rem, 12vw, 10rem)", color: "rgba(26,26,26,0.03)", lineHeight: 1 }}
+          className="absolute top-0 md:-top-4 left-1/2 -translate-x-1/2 font-display select-none pointer-events-none whitespace-nowrap hidden sm:block"
+          style={{ fontSize: "clamp(4rem, 12vw, 10rem)", color: "rgba(26,26,26,0.06)", lineHeight: 1 }}
           aria-hidden="true"
         >
           כל ילד
