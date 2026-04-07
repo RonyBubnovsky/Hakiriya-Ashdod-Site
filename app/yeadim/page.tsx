@@ -142,7 +142,7 @@ export default function Yeadim() {
         <div className="relative z-10 text-center max-w-4xl mx-auto">
           <MaskReveal delay={0.1} className="mb-4">
             <span className="font-syne text-[10px] sm:text-xs tracking-[0.3em] uppercase" style={{ color: "#E8503A" }}>
-              Annual Goals — תשפ״ו
+              Annual Goals - תשפ״ו
             </span>
           </MaskReveal>
           <MaskReveal delay={0.25}>
@@ -166,12 +166,12 @@ export default function Yeadim() {
           <div className="mx-auto max-w-3xl">
             <MaskReveal delay={0.1}>
               <span className="font-syne text-[10px] sm:text-xs tracking-[0.2em] uppercase block mb-4" style={{ color: "#E8503A" }}>
-                6 Core Goals
+                 Core Goals
               </span>
             </MaskReveal>
             <MaskReveal delay={0.2}>
               <h2 className="font-display leading-[1.05] tracking-tight" style={{ fontSize: "clamp(1.6rem, 4vw, 2.8rem)", color: "#1A1A1A" }}>
-                ששה יעדים מרכזיים שמנחים
+                שישה יעדים מרכזיים שמנחים
                 <br className="hidden sm:block" />
                 את הדרך שלנו השנה
               </h2>
@@ -189,7 +189,7 @@ export default function Yeadim() {
 
       {/* ═══════ CLOSING QUOTE ═══════ */}
       <section className="relative py-20 sm:py-28 px-6 sm:px-10 overflow-hidden" style={{ backgroundColor: "#1A1A1A" }}>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display select-none pointer-events-none whitespace-nowrap hidden sm:block" style={{ fontSize: "clamp(5rem, 14vw, 12rem)", color: "rgba(251,251,251,0.02)", lineHeight: 1 }} aria-hidden="true">
+        <div className="absolute top-0 md:-top-4 left-1/2 -translate-x-1/2 font-display select-none pointer-events-none whitespace-nowrap hidden sm:block" style={{ fontSize: "clamp(5rem, 14vw, 12rem)", color: "rgba(251,251,251,0.04)", lineHeight: 1 }} aria-hidden="true">
           שואפים
         </div>
 
