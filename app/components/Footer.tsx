@@ -40,7 +40,7 @@ export default function Footer() {
 
           <div className="pt-6 md:pt-4">
             <p
-              className="font-syne text-xs tracking-[0.2em] uppercase mb-2"
+              className="font-editorial text-sm md:text-base tracking-[0.1em] italic mb-2"
               style={{ color: "#E8503A" }}
             >
               חינוך למצוינות עם נשמה

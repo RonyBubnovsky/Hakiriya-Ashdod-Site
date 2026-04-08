@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Heebo, Secular_One, Syne, Space_Grotesk } from "next/font/google";
+import { Heebo, Secular_One, Syne, Space_Grotesk, Frank_Ruhl_Libre } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import GrainOverlay from "./components/GrainOverlay";
@@ -31,6 +31,12 @@ const syne = Syne({
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
+  display: "swap",
+});
+
+const frankRuhl = Frank_Ruhl_Libre({
+  subsets: ["hebrew", "latin"],
+  variable: "--font-frank-ruhl",
   display: "swap",
 });
 
@@ -211,7 +217,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${heebo.variable} ${secularOne.variable} ${syne.variable} ${spaceGrotesk.variable} antialiased`}
+        className={`${heebo.variable} ${secularOne.variable} ${syne.variable} ${spaceGrotesk.variable} ${frankRuhl.variable} antialiased`}
       >
         <GrainOverlay />
         <Navbar />
