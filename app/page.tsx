@@ -256,54 +256,20 @@ export default function Home() {
 
         {/* ── Main centered composition ── */}
         <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto">
-          {/* Latin accent label */}
-          <MaskReveal delay={0.1} className="mb-6 sm:mb-8">
-            <span
-              className="font-syne text-[10px] sm:text-xs tracking-[0.3em] uppercase"
-              style={{ color: "#E8503A" }}
-            >
-              Beit Hinuch HaKirya — Ashdod
-            </span>
-          </MaskReveal>
-
           {/* ── LARGE School Logo with hover effects ── */}
           <motion.div
-            className="relative mb-10 sm:mb-14 group cursor-pointer"
+            className="relative mb-10 sm:mb-14"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
             whileHover={{ scale: 1.05 }}
           >
-            {/* Rotating outer ring on hover */}
-            <motion.div
-              className="absolute -inset-4 sm:-inset-5 border border-accent/20 transition-all duration-700 group-hover:border-accent/50 group-hover:rotate-[3deg]"
-              style={{ borderRadius: "2px" }}
-              aria-hidden="true"
-            />
-            {/* Opposite rotating frame */}
-            <motion.div
-              className="absolute -inset-2 sm:-inset-3 border transition-all duration-700 group-hover:rotate-[-2deg]"
-              style={{ borderColor: "rgba(251,251,251,0.06)", borderRadius: "2px" }}
-              aria-hidden="true"
-            />
-            {/* Accent corner dots */}
-            <div className="absolute -top-2 -right-2 w-2 h-2 bg-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
-            <div className="absolute -bottom-2 -left-2 w-2 h-2 bg-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
-
             {/* Logo container */}
-            <div className="relative w-40 h-40 sm:w-52 sm:h-52 lg:w-60 lg:h-60 flex items-center justify-center bg-white/[0.03] backdrop-blur-sm overflow-hidden">
-              {/* Inner glow on hover */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                style={{
-                  background: "radial-gradient(circle at center, rgba(232,80,58,0.06) 0%, transparent 70%)",
-                }}
-                aria-hidden="true"
-              />
+            <div className="relative w-40 h-40 sm:w-52 sm:h-52 lg:w-60 lg:h-60 flex items-center justify-center">
               <motion.img
                 src="/school-logo.jpg"
                 alt="לוגו בית חינוך הקריה"
-                className="w-[75%] h-[75%] object-contain relative z-10"
+                className="w-full h-full object-contain relative z-10"
                 style={{ filter: "brightness(1.15) contrast(1.05)" }}
                 whileHover={{ rotate: 1, scale: 1.03 }}
                 transition={{ duration: 0.5 }}
