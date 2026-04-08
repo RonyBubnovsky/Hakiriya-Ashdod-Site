@@ -53,7 +53,7 @@ export default function Footer() {
 
         {/* Google Map */}
         <div className="w-full md:w-1/2 flex justify-center md:justify-end items-center">
-          <div className="w-[280px] h-[280px] md:w-[280px] md:h-[280px] flex-shrink-0">
+          <div className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] flex-shrink-0">
             <GoogleMap />
           </div>
         </div>
