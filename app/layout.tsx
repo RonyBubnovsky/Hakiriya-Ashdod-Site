@@ -4,9 +4,10 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import GrainOverlay from "./components/GrainOverlay";
 import PageTransition from "./components/PageTransition";
+import Footer from "./components/Footer";
 
 const SITE_URL = "https://hakiriya-ashdod.vercel.app";
-const SITE_NAME = "בית חינוך הקריה – אשדוד";
+const SITE_NAME = "בית חינוך הקריה - אשדוד";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -216,43 +217,8 @@ export default function RootLayout({
         <Navbar />
         <main><PageTransition>{children}</PageTransition></main>
 
-        {/* ===== Footer — Editorial ===== */}
-        <footer
-          className="py-12 px-4 border-t"
-          style={{
-            backgroundColor: "#1A1A1A",
-            borderColor: "rgba(232, 80, 58, 0.2)",
-          }}
-        >
-          <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="text-center sm:text-right">
-              <p
-                className="font-display text-lg font-bold mb-1"
-                style={{ color: "#FBFBFB" }}
-              >
-                בית חינוך הקריה - אשדוד
-              </p>
-              <p className="text-sm" style={{ color: "rgba(251,251,251,0.5)" }}>
-                בית ספר יסודי תורני מדעי טכנולוגי
-              </p>
-              <p className="text-sm" style={{ color: "rgba(251,251,251,0.5)" }}>
-                רח׳ העצמאות 63, אשדוד
-              </p>
-            </div>
-            <div className="text-center sm:text-left">
-              <p
-                className="font-syne text-xs tracking-[0.2em] uppercase mb-2"
-                style={{ color: "#E8503A" }}
-              >
-                חינוך למצוינות עם נשמה
-              </p>
-              <p className="text-xs" style={{ color: "rgba(251,251,251,0.3)" }}>
-                © {new Date().getFullYear()} בית חינוך הקריה, אשדוד. כל הזכויות
-                שמורות.
-              </p>
-            </div>
-          </div>
-        </footer>
+        {/* ===== Footer ===== */}
+        <Footer />
       </body>
     </html>
   );
