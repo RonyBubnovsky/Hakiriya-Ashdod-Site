@@ -145,13 +145,13 @@ export default function Yozamot() {
           <div className="mb-12 sm:mb-16 flex flex-col items-center justify-center gap-6 sm:gap-8 border-b border-white/5 pb-8" ref={gridRef}>
             <div className="text-center w-full flex flex-col items-center justify-center">
               <MaskReveal delay={0.1}>
-                <span className="text-sm sm:text-base lg:text-lg font-medium tracking-wide block mb-4 text-center" style={{ color: "#E8503A" }}>
+                <span className="text-xs sm:text-sm tracking-[0.15em] block mb-3 text-center" style={{ color: "#E8503A" }}>
                   תוכניות ייחודיות
                 </span>
               </MaskReveal>
               <MaskReveal delay={0.2}>
-                <h2 className="font-display leading-[1] tracking-tight text-center" style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", color: "#FBFBFB" }}>
-                  בחרו יוזמה לגילוי
+                <h2 className="font-display leading-[1] tracking-tight text-center" style={{ fontSize: "clamp(1.8rem, 4vw, 3.2rem)", color: "#FBFBFB" }}>
+                  גלו את היוזמות שלנו
                 </h2>
               </MaskReveal>
             </div>
@@ -159,17 +159,19 @@ export default function Yozamot() {
             <div className="flex gap-4 mx-auto">
               <button 
                 onClick={handlePrev} 
-                className="w-12 h-12 flex items-center justify-center border border-white/20 text-white/50 hover:text-white hover:border-[#E8503A] transition-all duration-300 focus:outline-none hover:bg-[#E8503A]/10"
+                className="px-5 py-2.5 flex items-center justify-center border border-white/20 text-white/50 hover:text-white hover:border-[#E8503A] transition-all duration-300 focus:outline-none hover:bg-[#E8503A]/10 group"
                 aria-label="Previous Initiative"
               >
-                <span className="text-xl leading-none mb-1">→</span>
+                <span className="text-xl leading-none ml-2 sm:ml-3 transition-transform duration-300 group-hover:translate-x-1">→</span>
+                <span className="text-sm font-medium tracking-wide">אחורה</span>
               </button>
               <button 
                 onClick={handleNext} 
-                className="w-12 h-12 flex items-center justify-center border border-white/20 text-white/50 hover:text-white hover:border-[#E8503A] transition-all duration-300 focus:outline-none hover:bg-[#E8503A]/10"
+                className="px-5 py-2.5 flex items-center justify-center border border-white/20 text-white/50 hover:text-white hover:border-[#E8503A] transition-all duration-300 focus:outline-none hover:bg-[#E8503A]/10 group"
                 aria-label="Next Initiative"
               >
-                <span className="text-xl leading-none mb-1">←</span>
+                <span className="text-sm font-medium tracking-wide">קדימה</span>
+                <span className="text-xl leading-none mr-2 sm:mr-3 transition-transform duration-300 group-hover:-translate-x-1">←</span>
               </button>
             </div>
           </div>
