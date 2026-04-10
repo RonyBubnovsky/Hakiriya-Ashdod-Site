@@ -58,10 +58,20 @@ const initiatives = [
 ];
 
 export default function Yozamot() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
   const gridRef = useRef<HTMLDivElement>(null);
   const gridInView = useInView(gridRef, { once: true, margin: "-60px" });
-  const detailRef = useRef<HTMLDivElement>(null);
+
+  const handleNext = () => setActiveIndex((prev) => (prev + 1) % initiatives.length);
+  const handlePrev = () => setActiveIndex((prev) => (prev - 1 + initiatives.length) % initiatives.length);
+
+  const getOffset = (index: number) => {
+    const n = initiatives.length;
+    let offset = index - activeIndex;
+    if (offset > n / 2) offset -= n;
+    else if (offset < -n / 2) offset += n;
+    return offset;
+  };
 
   return (
     <div className="overflow-hidden">
@@ -108,193 +118,166 @@ export default function Yozamot() {
         </div>
       </section>
 
-      {/* ═══════ GEOMETRIC SHAPES SHOWCASE ═══════ */}
-      <section className="relative py-20 sm:py-28 px-6 sm:px-10 overflow-hidden" style={{ backgroundColor: "#111" }}>
-        {/* Line decorations */}
-        <div className="absolute top-16 right-[8%] w-[1px] h-28 hidden lg:block" style={{ backgroundColor: "rgba(232,80,58,0.08)" }} aria-hidden="true" />
-        <div className="absolute bottom-20 left-[10%] w-20 h-[1px] hidden lg:block" style={{ backgroundColor: "rgba(232,80,58,0.08)" }} aria-hidden="true" />
-        <div className="absolute top-[40%] left-[4%] w-4 h-4 rotate-45 hidden lg:block" style={{ border: "1px solid rgba(232,80,58,0.1)" }} aria-hidden="true" />
+      {/* ═══════ HIGH-END CAROUSEL SHOWCASE ═══════ */}
+      <section className="relative py-24 sm:py-32 px-4 sm:px-10 overflow-hidden min-h-[90vh] flex flex-col justify-center" style={{ backgroundColor: "#111" }}>
+        
+        {/* Ambient Blur Background */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeIndex}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 0.15, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              backgroundImage: `url(${initiatives[activeIndex].image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              filter: "blur(40px) grayscale(60%)",
+            }}
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 z-0 bg-gradient-to-t from-[#111] via-transparent to-[#111] pointer-events-none" />
 
-        <div ref={gridRef} className="mx-auto max-w-6xl relative z-10">
-          <div className="mb-12 sm:mb-16 text-center">
-            <MaskReveal delay={0.1}>
-              <span className="font-syne text-[10px] sm:text-xs tracking-[0.2em] uppercase block mb-4" style={{ color: "#E8503A" }}>
-                Explore Our Programs
-              </span>
-            </MaskReveal>
-            <MaskReveal delay={0.2}>
-              <h2 className="font-display leading-[1] tracking-tight" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", color: "#FBFBFB" }}>
-                בחרו יוזמה לגילוי
-              </h2>
-            </MaskReveal>
+        <div className="relative z-10 mx-auto w-full max-w-7xl">
+          {/* Header section with Navigation */}
+          <div className="mb-12 sm:mb-16 flex flex-col items-center justify-center gap-6 sm:gap-8 border-b border-white/5 pb-8" ref={gridRef}>
+            <div className="text-center w-full flex flex-col items-center justify-center">
+              <MaskReveal delay={0.1}>
+                <span className="text-xs sm:text-sm tracking-[0.15em] block mb-3 text-center" style={{ color: "#E8503A" }}>
+                  תוכניות ייחודיות
+                </span>
+              </MaskReveal>
+              <MaskReveal delay={0.2}>
+                <h2 className="font-display leading-[1] tracking-tight text-center" style={{ fontSize: "clamp(1.8rem, 4vw, 3.2rem)", color: "#FBFBFB" }}>
+                  גלו את היוזמות שלנו
+                </h2>
+              </MaskReveal>
+            </div>
+            
+            <div className="flex gap-4 mx-auto">
+              <button 
+                onClick={handlePrev} 
+                className="px-5 py-2.5 flex items-center justify-center border border-white/20 text-white/50 hover:text-white hover:border-[#E8503A] transition-all duration-300 focus:outline-none hover:bg-[#E8503A]/10 group"
+                aria-label="Previous Initiative"
+              >
+                <span className="text-xl leading-none ml-2 sm:ml-3 transition-transform duration-300 group-hover:translate-x-1">→</span>
+                <span className="text-sm font-medium tracking-wide">אחורה</span>
+              </button>
+              <button 
+                onClick={handleNext} 
+                className="px-5 py-2.5 flex items-center justify-center border border-white/20 text-white/50 hover:text-white hover:border-[#E8503A] transition-all duration-300 focus:outline-none hover:bg-[#E8503A]/10 group"
+                aria-label="Next Initiative"
+              >
+                <span className="text-sm font-medium tracking-wide">קדימה</span>
+                <span className="text-xl leading-none mr-2 sm:mr-3 transition-transform duration-300 group-hover:-translate-x-1">←</span>
+              </button>
+            </div>
           </div>
 
-          {/* Geometric shapes grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8 justify-items-center">
-            {initiatives.map((item, index) => (
-              <motion.div
-                key={item.title}
-                className="relative cursor-pointer group"
-                onClick={() => {
-                  const next = activeIndex === index ? null : index;
-                  setActiveIndex(next);
-                  if (next !== null) {
-                    setTimeout(() => detailRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 100);
-                  }
-                }}
-                initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                animate={gridInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                transition={{ delay: 0.1 + index * 0.08, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-                whileHover={{ scale: 1.06, transition: { duration: 0.25 } }}
+          {/* Carousel Track */}
+          <motion.div 
+            className="relative w-full h-[600px] sm:h-[650px] flex items-center justify-center touch-pan-y cursor-grab active:cursor-grabbing" 
+            style={{ perspective: "1500px" }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.15}
+            onDragEnd={(_, { offset }) => {
+              if (offset.x > 50) handleNext();
+              else if (offset.x < -50) handlePrev();
+            }}
+          >
+             {initiatives.map((item, index) => {
+               const offset = getOffset(index);
+               if (Math.abs(offset) > 2) return null;
+
+               const isActive = offset === 0;
+
+               return (
+                 <motion.div
+                   key={item.title}
+                   className="absolute top-0 flex w-[95%] sm:w-[85%] max-w-5xl h-[550px] sm:h-[500px] cursor-pointer"
+                   onClick={() => !isActive && setActiveIndex(index)}
+                   initial={false}
+                   animate={{
+                     x: `${offset * -40}%`, 
+                     z: -Math.abs(offset) * 150,
+                     rotateY: offset * 15, 
+                     opacity: Math.abs(offset) >= 2 ? 0 : 1 - Math.abs(offset) * 0.4,
+                     scale: isActive ? 1 : 0.85,
+                   }}
+                   transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+                   style={{
+                     zIndex: 10 - Math.abs(offset),
+                     transformStyle: "preserve-3d",
+                   }}
+                 >
+                   <div 
+                     className="w-full h-full relative group transition-all duration-700" 
+                     style={{ filter: isActive ? "none" : "grayscale(70%) brightness(0.4)" }}
+                   >
+                     <div className="w-full h-full flex flex-col sm:block relative">
+                        {/* Image Unit */}
+                        <div className="w-full sm:w-[65%] h-[250px] sm:h-[500px] sm:absolute sm:left-0 sm:top-0 overflow-hidden relative shadow-2xl z-10 bg-black group-hover:shadow-[0_0_40px_rgba(232,80,58,0.15)] transition-shadow duration-500">
+                          <div className="absolute inset-0 bg-[#E8503A]/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                          <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105 pointer-events-none" />
+                          <div className="absolute inset-0 border border-white/10 pointer-events-none z-20" />
+                        </div>
+
+                        {/* Content Strip */}
+                        <div className="w-[92%] sm:w-[45%] max-w-xl mx-auto sm:mx-0 -mt-16 sm:mt-0 sm:absolute sm:right-[3%] lg:right-[6%] sm:top-1/2 sm:-translate-y-1/2 relative z-20 bg-[#1A1A1A] p-8 sm:p-12 border-t-[3px] border-t-[#E8503A] border border-white/5 shadow-[-20px_30px_60px_rgba(0,0,0,0.8)] flex flex-col noise-bg">
+                           {/* Decorative corner */}
+                           <div className="absolute top-0 left-0 w-8 h-8 border-t border-l border-white/20 opacity-50" />
+                           
+                           <span className="text-xs sm:text-sm font-medium tracking-wide block mb-3 sm:mb-4 text-[#E8503A]">
+                             יוזמה // {String(index + 1).padStart(2, "0")}
+                           </span>
+                           <h3 className="font-display text-3xl sm:text-5xl mb-4 text-[#FBFBFB] leading-[1.05]">
+                             {item.title}
+                           </h3>
+                           
+                           {item.subtitle && (
+                             <div className="mb-5 sm:mb-6">
+                               <span className="text-xs sm:text-sm tracking-wide text-white/80 border border-white/10 px-3 py-1 bg-white/[0.02]">
+                                 {item.subtitle}
+                               </span>
+                             </div>
+                           )}
+                           
+                           <motion.div className="w-12 sm:w-16 h-[1px] bg-gradient-to-r from-[#E8503A] to-transparent mb-5 sm:mb-8" />
+                           
+                           <p className="text-sm sm:text-base leading-relaxed text-[#FBFBFB]/70 sm:mb-2 font-light">
+                             {item.description}
+                           </p>
+                        </div>
+                     </div>
+                   </div>
+                 </motion.div>
+               );
+             })}
+          </motion.div>
+
+          {/* Progress Indicators */}
+          <div className="mt-16 sm:mt-20 max-w-xs sm:max-w-md mx-auto flex items-center justify-center gap-2 sm:gap-3 px-4">
+            {initiatives.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveIndex(idx)}
+                className="relative flex-1 h-[2px] overflow-hidden group focus:outline-none"
+                aria-label={`Go to slide ${idx + 1}`}
               >
-                {/* The geometric shape */}
-                <div
-                  className="relative w-[150px] h-[170px] sm:w-[180px] sm:h-[200px] lg:w-[210px] lg:h-[230px] overflow-hidden transition-all duration-500"
-                  style={{ clipPath: item.shape }}
-                >
-                  {/* Image */}
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
-                    style={{
-                      backgroundImage: `url(${item.image})`,
-                      filter: activeIndex === index ? "grayscale(0%) brightness(0.55)" : "grayscale(45%) brightness(0.4)",
-                    }}
-                  />
-
-                  {/* Overlay */}
-                  <div
-                    className="absolute inset-0 transition-opacity duration-500"
-                    style={{
-                      background: activeIndex === index
-                        ? "linear-gradient(to top, rgba(232,80,58,0.4) 0%, rgba(26,26,26,0.3) 100%)"
-                        : "linear-gradient(to top, rgba(26,26,26,0.75) 0%, rgba(26,26,26,0.2) 100%)",
-                    }}
-                  />
-
-                  {/* Text */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10">
-                    <p className="font-display text-base sm:text-lg lg:text-xl leading-tight mb-1" style={{ color: "#FBFBFB" }}>
-                      {item.title}
-                    </p>
-                    {item.subtitle && (
-                      <p className="font-syne text-[9px] sm:text-[10px] tracking-wider uppercase" style={{ color: "rgba(232,80,58,0.9)" }}>
-                        {item.subtitle}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Active ring glow */}
-                  {activeIndex === index && (
-                    <motion.div
-                      className="absolute inset-0"
-                      style={{ boxShadow: "inset 0 0 30px rgba(232,80,58,0.25)" }}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      aria-hidden="true"
-                    />
-                  )}
-                </div>
-
-                {/* Label below shape */}
-                <div className="mt-3 text-center">
+                <div className="absolute inset-0 bg-white/20 transition-colors group-hover:bg-white/40" />
+                {activeIndex === idx && (
                   <motion.div
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 transition-all duration-300"
-                    style={{
-                      backgroundColor: activeIndex === index ? "rgba(232,80,58,0.15)" : "rgba(251,251,251,0.04)",
-                      border: `1px solid ${activeIndex === index ? "rgba(232,80,58,0.35)" : "rgba(251,251,251,0.08)"}`,
-                    }}
-                  >
-                    <span
-                      className="font-display text-xs sm:text-sm"
-                      style={{ color: activeIndex === index ? "#E8503A" : "rgba(251,251,251,0.5)" }}
-                    >
-                      {activeIndex === index ? "סגור" : "גלו עוד"}
-                    </span>
-                    <motion.span
-                      className="text-sm"
-                      style={{ color: activeIndex === index ? "#E8503A" : "rgba(251,251,251,0.3)" }}
-                      animate={{ rotate: activeIndex === index ? 45 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      +
-                    </motion.span>
-                  </motion.div>
-                </div>
-
-              </motion.div>
+                    layoutId="active-indicator"
+                    className="absolute inset-0 bg-[#E8503A]"
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  />
+                )}
+              </button>
             ))}
           </div>
-
-          {/* ── Detail panel (opens below the grid) ── */}
-          <AnimatePresence>
-            {activeIndex !== null && (
-              <motion.div
-                ref={detailRef}
-                key={activeIndex}
-                className="mt-10 sm:mt-14 overflow-hidden"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-              >
-                <div
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-0 overflow-hidden"
-                  style={{ backgroundColor: "#1A1A1A" }}
-                >
-                  {/* Image side */}
-                  <motion.div
-                    className="relative h-[200px] sm:h-[280px]"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.15, duration: 0.5 }}
-                  >
-                    <img
-                      src={initiatives[activeIndex].image}
-                      alt={initiatives[activeIndex].title}
-                      className="w-full h-full object-cover"
-                      style={{ filter: "grayscale(20%) contrast(1.05)" }}
-                    />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to left, rgba(26,26,26,0.6) 0%, transparent 50%)" }} />
-                  </motion.div>
-
-                  {/* Text side */}
-                  <div className="p-8 sm:p-10 flex flex-col justify-center">
-                    <motion.div
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2, duration: 0.5 }}
-                    >
-                      <span className="font-syne text-[10px] tracking-[0.2em] uppercase block mb-3" style={{ color: "#E8503A" }}>
-                        {String((activeIndex ?? 0) + 1).padStart(2, "0")} / {String(initiatives.length).padStart(2, "0")}
-                      </span>
-
-                      <h3 className="font-display text-2xl sm:text-3xl mb-2" style={{ color: "#FBFBFB" }}>
-                        {initiatives[activeIndex].title}
-                      </h3>
-
-                      {initiatives[activeIndex].subtitle && (
-                        <p className="font-syne text-xs tracking-wider uppercase mb-4" style={{ color: "rgba(232,80,58,0.7)" }}>
-                          {initiatives[activeIndex].subtitle}
-                        </p>
-                      )}
-
-                      <motion.div
-                        className="w-10 h-[2px] bg-accent mb-5"
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ delay: 0.35, duration: 0.3 }}
-                        style={{ transformOrigin: "right" }}
-                      />
-
-                      <p className="text-sm sm:text-base leading-relaxed" style={{ color: "rgba(251,251,251,0.6)" }}>
-                        {initiatives[activeIndex].description}
-                      </p>
-                    </motion.div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </section>
 
