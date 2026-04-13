@@ -13,29 +13,34 @@ export default function PageTransition({ children }: PageTransitionProps) {
 
   return (
     <div key={pathname}>
-      {/* Curtain overlay — slides up to reveal page */}
+      {/* Brutalist Slide Curtains */}
       <motion.div
-        className="fixed inset-0 z-[100] pointer-events-none"
-        style={{ transformOrigin: "top", backgroundColor: "#1A1A1A" }}
+        className="fixed inset-0 z-[100] pointer-events-none bg-[#FF3366]"
+        style={{ transformOrigin: "bottom" }}
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
+        transition={{ duration: 0.5, ease: [0.83, 0, 0.17, 1], delay: 0.2 }}
+      />
+      <motion.div
+        className="fixed inset-0 z-[101] pointer-events-none bg-[#00E5FF]"
+        style={{ transformOrigin: "bottom" }}
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: 0 }}
+        transition={{ duration: 0.5, ease: [0.83, 0, 0.17, 1], delay: 0.1 }}
+      />
+      <motion.div
+        className="fixed inset-0 z-[102] pointer-events-none bg-[#111111]"
+        style={{ transformOrigin: "bottom" }}
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: 0 }}
+        transition={{ duration: 0.5, ease: [0.83, 0, 0.17, 1], delay: 0 }}
       />
 
-      {/* Accent line sweep */}
+      {/* Page content - harsh pop-in instead of gentle fade */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] z-[101] pointer-events-none"
-        style={{ transformOrigin: "right", backgroundColor: "#E8503A" }}
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: [0, 1, 0] }}
-        transition={{ duration: 0.8, ease: "easeInOut", times: [0, 0.5, 1] }}
-      />
-
-      {/* Page content with fade-in */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3, delay: 0.3, ease: "circOut" }}
       >
         {children}
       </motion.div>

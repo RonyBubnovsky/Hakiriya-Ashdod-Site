@@ -2,7 +2,6 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import MaskReveal from "../components/MaskReveal";
 
 const goals = [
   {
@@ -37,77 +36,43 @@ const goals = [
   },
 ];
 
+const brutalColors = ["bg-[#FF3366]", "bg-[#00E5FF]", "bg-[#FFD700]", "bg-[#CCFF00]"];
+
 function GoalCard({ goal, index }: { goal: typeof goals[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-10%" });
   const isEven = index % 2 === 0;
+  const color = brutalColors[index % brutalColors.length];
 
   return (
     <motion.div
       ref={ref}
-      className={`grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch ${isEven ? "" : "direction-alternate"}`}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 50 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ duration: 0.6, delay: 0.1 }}
+      className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} border-b-8 border-black group`}
     >
-      {/* Image side */}
-      <div className={`relative h-[220px] sm:h-[280px] lg:h-auto overflow-hidden group ${isEven ? "lg:col-span-5 lg:order-1" : "lg:col-span-5 lg:order-2"}`}>
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-          style={{
-            backgroundImage: `url(${goal.image})`,
-            filter: "grayscale(30%) contrast(1.05)",
-          }}
-        />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(26,26,26,0.1) 0%, rgba(26,26,26,0.5) 100%)" }} />
-
-        {/* Giant number overlay */}
-        <span
-          className="absolute bottom-4 right-6 sm:bottom-6 sm:right-8 font-syne text-[5rem] sm:text-[7rem] font-bold leading-none select-none"
-          style={{ color: "rgba(251,251,251,0.1)" }}
-          aria-hidden="true"
-        >
-          {String(goal.number).padStart(2, "0")}
-        </span>
+      {/* Image Side */}
+      <div className="w-full md:w-1/2 relative h-64 md:h-auto border-b-8 md:border-b-0 md:border-x-8 border-black overflow-hidden object-cover">
+         <div className={`absolute inset-0 ${color} mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none`}></div>
+         <img src={goal.image} alt={"יעד " + goal.number} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" />
+         
+         <div className="absolute top-4 left-4 z-20 bg-black text-white font-brutal font-black text-5xl px-4 py-2 border-4 border-white shadow-[4px_4px_0px_0px_#fff]">
+           0{goal.number}
+         </div>
       </div>
 
-      {/* Content side */}
-      <div
-        className={`${isEven ? "lg:col-span-7 lg:order-2" : "lg:col-span-7 lg:order-1"} p-8 sm:p-10 lg:p-14 flex flex-col justify-center`}
-        style={{ backgroundColor: "#1A1A1A" }}
-      >
-        {/* Goal label */}
-        <motion.div
-          className="inline-flex items-center gap-3 mb-6 self-start"
-          initial={{ opacity: 0, x: 10 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          <div className="w-8 h-[2px] bg-accent" />
-          <span className="font-display text-xs sm:text-sm tracking-wide" style={{ color: "#E8503A" }}>
-            יעד {String(goal.number).padStart(2, "0")}
-          </span>
-        </motion.div>
-
-        {/* Goal text */}
-        <motion.p
-          className="font-display text-xl sm:text-2xl lg:text-[1.7rem] leading-[1.5] mb-6"
-          style={{ color: "#FBFBFB" }}
-          initial={{ opacity: 0, y: 15 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        >
-          {goal.title}
-        </motion.p>
-
-        {/* Bottom accent */}
-        <motion.div
-          className="w-12 h-[2px] bg-accent"
-          initial={{ scaleX: 0 }}
-          animate={inView ? { scaleX: 1 } : {}}
-          transition={{ delay: 0.5, duration: 0.4 }}
-          style={{ transformOrigin: "right" }}
-        />
+      {/* Content Side */}
+      <div className={`w-full md:w-1/2 p-8 sm:p-12 md:p-16 flex flex-col justify-center ${color} transition-colors duration-500`}>
+         <div className="bg-white border-4 border-black text-black font-brutal font-black px-4 py-2 text-xl inline-block w-fit mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] uppercase">
+           יעד מרכזי
+         </div>
+         
+         <p className="font-brutal font-black text-2xl sm:text-3xl md:text-4xl leading-snug text-black">
+           {goal.title}
+         </p>
+         
+         <div className="mt-8 w-24 h-4 bg-black border-2 border-white shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]"></div>
       </div>
     </motion.div>
   );
@@ -115,101 +80,89 @@ function GoalCard({ goal, index }: { goal: typeof goals[0]; index: number }) {
 
 export default function Yeadim() {
   return (
-    <div className="overflow-hidden">
-      {/* ═══════ HERO ═══════ */}
-      <section
-        className="relative min-h-[55vh] sm:min-h-[50vh] flex items-center justify-center px-6 sm:px-10 py-24 sm:py-28 overflow-hidden"
-        style={{ backgroundColor: "#1A1A1A" }}
-      >
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "url(https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&h=600&fit=crop&q=80)",
-            backgroundSize: "cover", backgroundPosition: "center", filter: "grayscale(70%) contrast(1.1)",
-          }}
-          initial={{ opacity: 0, scale: 1.1 }} animate={{ opacity: 0.1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }} aria-hidden="true"
-        />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(26,26,26,0.5) 0%, rgba(26,26,26,0.85) 100%)" }} aria-hidden="true" />
+    <div className="relative min-h-screen bg-[#F4F4F0] text-[#111111] overflow-x-hidden font-sans" dir="rtl">
+      {/* Import specific bold fonts for anti-slop aesthetic */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;900&display=swap');
+        .font-brutal { font-family: 'Rubik', sans-serif; }
+      `}} />
 
-        <motion.div className="absolute top-6 left-6 sm:top-10 sm:left-10 z-20" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} aria-hidden="true">
-          <div className="w-6 h-[2px] bg-accent mb-1" /><div className="w-[2px] h-6 bg-accent" />
-        </motion.div>
-        <motion.div className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 z-20" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }} aria-hidden="true">
-          <div className="flex flex-col items-end"><div className="w-[2px] h-6 bg-accent mb-1" /><div className="w-6 h-[2px] bg-accent" /></div>
+      {/* HERO SECTION */}
+      <section className="relative pt-32 pb-24 px-6 sm:px-12 flex flex-col items-center justify-center text-center border-b-8 border-black bg-white">
+        <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }} 
+            animate={{ opacity: 1, scale: 1 }} 
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} 
+            className="mb-8 w-24 h-24 md:w-32 md:h-32"
+        >
+           <img src="/school-logo.jpg" alt="לוגו בית חינוך הקריה" className="w-full h-full object-contain mix-blend-multiply" />
         </motion.div>
 
-        <div className="relative z-10 text-center max-w-4xl mx-auto">
-          <MaskReveal delay={0.1} className="mb-4">
-            <span className="font-syne text-[10px] sm:text-xs tracking-[0.3em] uppercase" style={{ color: "#E8503A" }}>
-              Annual Goals - תשפ״ו
-            </span>
-          </MaskReveal>
-          <MaskReveal delay={0.25}>
-            <h1 className="font-display font-normal leading-[0.95] tracking-tight mb-4" style={{ fontSize: "clamp(2.4rem, 7vw, 5.5rem)", color: "#FBFBFB" }}>
-              יעדי בית הספר
-            </h1>
-          </MaskReveal>
-          <MaskReveal delay={0.4} className="mb-8">
-            <p className="text-lg sm:text-xl font-light" style={{ color: "rgba(251,251,251,0.5)" }}>
-              בית חינוך תורני מדעי טכנולוגי הקריה
-            </p>
-          </MaskReveal>
-          <motion.hr className="divider-accent w-16 mx-auto" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.6, duration: 0.6 }} style={{ transformOrigin: "center" }} />
-        </div>
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-brutal font-bold tracking-[0.2em] uppercase text-[#FF3366] mb-4">
+          Annual Goals - תשפ״ו
+        </motion.p>
+        
+        <motion.h1 
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="font-brutal font-black text-6xl sm:text-7xl lg:text-[8rem] leading-[0.85] tracking-tight uppercase max-w-5xl text-black"
+        >
+          יעדי בית הספר
+        </motion.h1>
+        
+        <motion.p 
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
+          className="font-brutal text-2xl md:text-4xl mt-8 leading-relaxed font-bold bg-[#CCFF00] px-4 py-2 border-4 border-black inline-block shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-black"
+        >
+          בית חינוך תורני מדעי טכנולוגי הקריה
+        </motion.p>
       </section>
 
-      {/* ═══════ GOALS ═══════ */}
-      <section className="relative bg-surface noise-bg overflow-hidden">
-        {/* Section intro */}
-        <div className="py-14 sm:py-20 px-6 sm:px-10 text-center">
-          <div className="mx-auto max-w-3xl">
-            <MaskReveal delay={0.1}>
-              <span className="font-syne text-[10px] sm:text-xs tracking-[0.2em] uppercase block mb-4" style={{ color: "#E8503A" }}>
-                 Core Goals
-              </span>
-            </MaskReveal>
-            <MaskReveal delay={0.2}>
-              <h2 className="font-display leading-[1.05] tracking-tight" style={{ fontSize: "clamp(1.6rem, 4vw, 2.8rem)", color: "#1A1A1A" }}>
-                שישה יעדים מרכזיים שמנחים
-                <br className="hidden sm:block" />
-                את הדרך שלנו השנה
-              </h2>
-            </MaskReveal>
-          </div>
+      {/* GOALS GRID SECTION */}
+      <section className="relative bg-[#F4F4F0]">
+        <div className="py-20 px-6 sm:px-12 text-center border-b-8 border-black">
+           <span className="font-brutal font-black text-2xl tracking-widest text-[#FF3366] bg-black px-4 py-1 border-4 border-black inline-block mb-4 shadow-[4px_4px_0px_0px_#FF3366] uppercase">
+             CORE GOALS
+           </span>
+           <h2 className="font-brutal font-black text-4xl sm:text-6xl text-black leading-tight max-w-4xl mx-auto">
+             שישה יעדים מרכזיים שמנחים<br/>את הדרך שלנו השנה
+           </h2>
         </div>
 
-        {/* Goals list — alternating editorial strips */}
-        <div className="flex flex-col">
+        {/* Goals list — Brutal Zigzag layout */}
+        <div className="flex flex-col border-b-8 border-black">
           {goals.map((goal, index) => (
             <GoalCard key={goal.number} goal={goal} index={index} />
           ))}
         </div>
       </section>
 
-      {/* ═══════ CLOSING QUOTE ═══════ */}
-      <section className="relative py-20 sm:py-28 px-6 sm:px-10 overflow-hidden" style={{ backgroundColor: "#1A1A1A" }}>
-        <div className="absolute top-0 md:-top-4 left-1/2 -translate-x-1/2 font-display select-none pointer-events-none whitespace-nowrap hidden sm:block" style={{ fontSize: "clamp(5rem, 14vw, 12rem)", color: "rgba(251,251,251,0.04)", lineHeight: 1 }} aria-hidden="true">
-          שואפים
+      {/* CLOSING QUOTE */}
+      <section className="py-32 px-6 bg-[#111] text-center relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] flex justify-center items-center opacity-[0.05] pointer-events-none">
+          <span className="font-brutal font-black text-[25vw] leading-none text-white select-none whitespace-nowrap">ASPIRE</span>
         </div>
 
         <motion.div
-          className="relative z-10 text-center max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10 max-w-4xl mx-auto bg-[#FFD700] border-8 border-black p-12 md:p-20 shadow-[16px_16px_0px_0px_#fff]"
         >
-          <span className="font-syne text-[10px] sm:text-xs tracking-[0.25em] uppercase block mb-6" style={{ color: "#E8503A" }}>
-            Aspire Higher
-          </span>
-          <blockquote className="font-display leading-[1.15] tracking-tight mb-4" style={{ fontSize: "clamp(1.8rem, 5vw, 3.2rem)", color: "#FBFBFB" }}>
-            &ldquo;שואפים גבוה
-            <br />
-            מגיעים רחוק&rdquo;
-          </blockquote>
-          <p className="text-base sm:text-lg mb-8" style={{ color: "rgba(251,251,251,0.45)" }}>
-            יחד נממש את כל היעדים שלנו
-          </p>
-          <motion.hr className="divider-accent w-12 mx-auto" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ delay: 0.3, duration: 0.5 }} style={{ transformOrigin: "center" }} />
+           <span className="font-brutal font-black text-xl tracking-widest uppercase text-white bg-black px-4 py-2 border-2 border-white mb-8 inline-block shadow-[4px_4px_0px_0px_#00E5FF]">
+             ASPIRE HIGHER
+           </span>
+           
+           <blockquote className="font-brutal font-black text-6xl sm:text-8xl leading-tight mb-8 text-black">
+             "שואפים גבוה<br/>מגיעים רחוק"
+           </blockquote>
+           
+           <div className="w-full h-4 bg-black mb-8 border-2 border-white"></div>
+           
+           <p className="font-brutal font-bold text-2xl sm:text-4xl text-black tracking-wide">
+             יחד <span className="text-white bg-black px-2 border-2 border-black inline-block shadow-[2px_2px_0px_0px_#FF3366]">נממש</span> את כל היעדים שלנו
+           </p>
         </motion.div>
       </section>
     </div>

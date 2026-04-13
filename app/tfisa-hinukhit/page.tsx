@@ -2,509 +2,264 @@
 
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import MaskReveal from "../components/MaskReveal";
 
 export default function TfisaHinukhit() {
   const [proverbRevealed, setProverbRevealed] = useState(false);
   const [goal1Revealed, setGoal1Revealed] = useState(false);
   const [goal2Revealed, setGoal2Revealed] = useState(false);
+  
   const goalsRef = useRef<HTMLDivElement>(null);
-  const goalsInView = useInView(goalsRef, { once: true, margin: "-60px" });
+  const goalsInView = useInView(goalsRef, { once: true, margin: "-10%" });
 
   return (
-    <div className="overflow-hidden">
-      {/* ═══════ HERO ═══════ */}
-      <section
-        className="relative min-h-[55vh] sm:min-h-[50vh] flex items-center justify-center px-6 sm:px-10 py-24 sm:py-28 overflow-hidden"
-        style={{ backgroundColor: "#1A1A1A" }}
-      >
-        <motion.div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "url(https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&h=600&fit=crop&q=80)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "grayscale(70%) contrast(1.1)",
-          }}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 0.1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          aria-hidden="true"
-        />
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, rgba(26,26,26,0.5) 0%, rgba(26,26,26,0.85) 100%)" }}
-          aria-hidden="true"
-        />
+    <div className="relative min-h-screen bg-[#F4F4F0] text-[#111111] overflow-x-hidden font-sans" dir="rtl">
+      {/* Import specific bold fonts for anti-slop aesthetic */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;900&display=swap');
+        .font-brutal { font-family: 'Rubik', sans-serif; }
+      `}} />
 
-        {/* Corner markers */}
-        <motion.div className="absolute top-6 left-6 sm:top-10 sm:left-10 z-20" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 0.5 }} aria-hidden="true">
-          <div className="w-6 h-[2px] bg-accent mb-1" />
-          <div className="w-[2px] h-6 bg-accent" />
-        </motion.div>
-        <motion.div className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 z-20" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 0.5 }} aria-hidden="true">
-          <div className="flex flex-col items-end">
-            <div className="w-[2px] h-6 bg-accent mb-1" />
-            <div className="w-6 h-[2px] bg-accent" />
-          </div>
+      {/* HERO SECTION */}
+      <section className="relative pt-32 pb-24 px-6 sm:px-12 flex flex-col items-center justify-center text-center border-b-8 border-black bg-white">
+        <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }} 
+            animate={{ opacity: 1, scale: 1 }} 
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} 
+            className="mb-8 w-24 h-24 md:w-32 md:h-32"
+        >
+           <img src="/school-logo.jpg" alt="לוגו בית חינוך הקריה" className="w-full h-full object-contain mix-blend-multiply" />
         </motion.div>
 
-        <div className="relative z-10 text-center max-w-3xl mx-auto">
-          <MaskReveal delay={0.1} className="mb-4">
-            <span className="font-syne text-[10px] sm:text-xs tracking-[0.3em] uppercase" style={{ color: "#E8503A" }}>
-              Educational Philosophy
-            </span>
-          </MaskReveal>
-          <MaskReveal delay={0.25}>
-            <h1 className="font-display font-normal leading-[0.95] tracking-tight mb-4" style={{ fontSize: "clamp(2.6rem, 7vw, 5.5rem)", color: "#FBFBFB" }}>
-              מצוינות עם נשמה
-            </h1>
-          </MaskReveal>
-          <MaskReveal delay={0.4} className="mb-8">
-            <p className="text-lg sm:text-xl font-light" style={{ color: "rgba(251,251,251,0.5)" }}>
-              בית חינוך תורני מדעי טכנולוגי הקריה
-            </p>
-          </MaskReveal>
-          <motion.hr className="divider-accent w-16 mx-auto" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.6, duration: 0.6 }} style={{ transformOrigin: "center" }} />
-        </div>
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-brutal font-bold tracking-[0.2em] uppercase text-[#FF3366] mb-4">
+          Educational Philosophy
+        </motion.p>
+        
+        <motion.h1 
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="font-brutal font-black text-6xl sm:text-7xl lg:text-[8rem] leading-[0.85] tracking-tight uppercase max-w-5xl"
+        >
+          מצוינות<br />עם נשמה
+        </motion.h1>
+        
+        <motion.p 
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
+          className="font-brutal text-2xl md:text-4xl mt-8 leading-relaxed font-bold bg-[#FFD700] px-4 py-2 border-4 border-black inline-block shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
+        >
+          בית חינוך תורני מדעי טכנולוגי הקריה
+        </motion.p>
       </section>
 
-      {/* ═══════ INTERACTIVE PROVERB REVEAL ═══════ */}
-      <section className="relative py-20 sm:py-32 px-6 sm:px-10 bg-surface noise-bg overflow-hidden">
-        {/* Background photo shards — subtle */}
-        <motion.div
-          className="absolute top-0 left-0 w-[30%] h-[50%] hidden lg:block"
-          style={{
-            clipPath: "polygon(0 0, 90% 0, 60% 100%, 0 80%)",
-            backgroundImage: "url(https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop&q=80)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "grayscale(80%)",
-            opacity: 0.04,
-          }}
-          aria-hidden="true"
-        />
-        <motion.div
-          className="absolute bottom-0 right-0 w-[25%] h-[45%] hidden lg:block"
-          style={{
-            clipPath: "polygon(20% 0, 100% 10%, 100% 100%, 0 100%)",
-            backgroundImage: "url(https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&h=400&fit=crop&q=80)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "grayscale(80%)",
-            opacity: 0.04,
-          }}
-          aria-hidden="true"
-        />
-
+      {/* INTERACTIVE PROVERB REVEAL */}
+      <section className="relative py-32 px-6 sm:px-12 bg-[#00E5FF] border-b-8 border-black">
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none flex items-center justify-center overflow-hidden">
+          <span className="font-brutal font-black text-[25vw] whitespace-nowrap text-black">DISCOVER</span>
+        </div>
+        
         <div className="mx-auto max-w-4xl relative z-10">
           <AnimatePresence mode="wait">
             {!proverbRevealed ? (
-              /* ── The invitation card ── */
               <motion.div
                 key="invite"
-                className="relative cursor-pointer group"
                 onClick={() => setProverbRevealed(true)}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ duration: 0.4 }}
+                className="cursor-pointer group block"
               >
-                <div
-                  className="relative overflow-hidden py-16 sm:py-24 px-8 sm:px-14 text-center transition-all duration-500"
-                  style={{ backgroundColor: "#1A1A1A" }}
-                >
-                  {/* Background image peek */}
-                  <div
-                    className="absolute inset-0 opacity-[0.08] group-hover:opacity-[0.14] transition-opacity duration-700"
-                    style={{
-                      backgroundImage: "url(https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&h=600&fit=crop&q=80)",
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      filter: "grayscale(60%)",
-                    }}
-                    aria-hidden="true"
-                  />
+                <div className="bg-white border-8 border-black p-12 md:p-20 text-center shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] transform transition-transform group-hover:-translate-y-2 group-hover:shadow-[24px_24px_0px_0px_rgba(0,0,0,1)]">
+                  <span className="font-brutal font-black text-2xl tracking-widest uppercase text-black bg-[#CCFF00] px-4 py-1 border-4 border-black mb-8 inline-block shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    CLICK TO REVEAL
+                  </span>
+                  
+                  <h2 className="font-brutal font-black text-4xl sm:text-6xl mb-6 text-black">
+                    גלו את התפיסה החינוכית<br/>של בית הספר שלנו
+                  </h2>
+                  
+                  <p className="font-brutal text-xl md:text-2xl font-medium text-black/60 mb-10">
+                    לחצו לגילוי הפסוק המנחה ומשמעותו
+                  </p>
 
-                  {/* Animated border frame */}
-                  <div className="absolute inset-3 sm:inset-5 border border-white/[0.06] group-hover:border-accent/20 transition-colors duration-500" aria-hidden="true" />
-
-                  {/* Corner accents that appear on hover */}
-                  <div className="absolute top-3 left-3 sm:top-5 sm:left-5 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true">
-                    <div className="w-full h-[1px] bg-accent" />
-                    <div className="w-[1px] h-full bg-accent" />
-                  </div>
-                  <div className="absolute bottom-3 right-3 sm:bottom-5 sm:right-5 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true">
-                    <div className="w-full h-[1px] bg-accent absolute bottom-0" />
-                    <div className="w-[1px] h-full bg-accent absolute left-0" />
-                  </div>
-
-                  <div className="relative z-10">
-                    <span className="font-syne text-[10px] sm:text-xs tracking-[0.3em] uppercase block mb-6" style={{ color: "#E8503A" }}>
-                      Discover
-                    </span>
-
-                    <p className="font-display text-2xl sm:text-3xl lg:text-4xl mb-4 leading-snug" style={{ color: "#FBFBFB" }}>
-                      גלו את התפיסה החינוכית
-                      <br />
-                      של בית הספר שלנו
-                    </p>
-
-                    <p className="text-sm sm:text-base mb-8" style={{ color: "rgba(251,251,251,0.4)" }}>
-                      לחצו לגילוי הפסוק המנחה ומשמעותו
-                    </p>
-
-                    {/* Animated click indicator */}
-                    <motion.div
-                      className="inline-flex items-center gap-3 px-6 py-3 border group-hover:border-accent/40 transition-colors duration-300"
-                      style={{ borderColor: "rgba(251,251,251,0.15)" }}
-                      animate={{ y: [0, -4, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <span className="font-syne text-xs tracking-wider uppercase" style={{ color: "rgba(251,251,251,0.6)" }}>
-                        לחצו כאן
-                      </span>
-                      <motion.span
-                        className="text-accent text-lg"
-                        animate={{ x: [0, 4, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        ←
-                      </motion.span>
-                    </motion.div>
+                  <div className="w-16 h-16 mx-auto bg-[#FF3366] text-white border-4 border-black flex items-center justify-center rounded-full text-4xl group-hover:scale-110 transition-transform">
+                    ↓
                   </div>
                 </div>
               </motion.div>
             ) : (
-              /* ── The revealed content ── */
               <motion.div
                 key="revealed"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-                className="text-center"
+                className="bg-black text-white border-8 border-white p-12 md:p-20 text-center shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]"
               >
-                <motion.span
-                  className="font-syne text-[10px] sm:text-xs tracking-[0.3em] uppercase block mb-6"
-                  style={{ color: "#E8503A" }}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1, duration: 0.5 }}
-                >
-                  Guiding Verse
-                </motion.span>
+                <span className="font-brutal font-black text-xl tracking-widest uppercase text-black bg-[#FFD700] px-3 py-1 mb-8 inline-block">
+                  GUIDING VERSE
+                </span>
 
-                <motion.blockquote
-                  className="font-display leading-[1.1] tracking-tight mb-10"
-                  style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)", color: "#1A1A1A" }}
-                  initial={{ opacity: 0, y: 25, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ delay: 0.2, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-                >
-                  <span className="text-accent">&ldquo;</span>
-                  חנוך לנער על פי דרכו
-                  <br />
-                  גם כי יזקין לא יסור ממנה
-                  <span className="text-accent">&rdquo;</span>
-                </motion.blockquote>
+                <blockquote className="font-brutal font-black text-5xl sm:text-7xl leading-[1.1] mb-10 text-[#00E5FF]">
+                  "חנוך לנער על פי דרכו<br/>גם כי יזקין לא יסור ממנה"
+                </blockquote>
 
-                <motion.div
-                  className="w-16 h-[3px] bg-accent mx-auto mb-10"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.5, duration: 0.5 }}
-                  style={{ transformOrigin: "center" }}
-                />
+                <div className="w-24 h-4 bg-[#FF3366] mx-auto mb-10 border-2 border-white" />
 
-                <motion.p
-                  className="text-base sm:text-lg lg:text-xl leading-[2] max-w-2xl mx-auto"
-                  style={{ color: "#555555" }}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 0.6 }}
-                >
-                  התפיסה החינוכית הבית ספרית נובעת מהפסוק הנ&quot;ל, אשר מבטא שתיים
-                  מבין המטרות העיקריות של בית ספרינו. מתוך מטרות העל הללו נגזרות
-                  מטרות נוספות אשר יפורטו בהמשך.
-                </motion.p>
+                <p className="font-brutal text-xl md:text-3xl leading-[1.7] max-w-3xl mx-auto font-medium">
+                  התפיסה החינוכית הבית ספרית נובעת מהפסוק הנ"ל, אשר מבטא שתיים ממטרות העיקריות של בית ספרינו. מתוך מטרות העל הללו נגזרות מטרות נוספות אשר יפורטו בהמשך.
+                </p>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       </section>
 
-      {/* ═══════ INTERACTIVE GOALS ═══════ */}
-      <section
-        ref={goalsRef}
-        className="relative py-20 sm:py-28 px-6 sm:px-10 overflow-hidden"
-        style={{ backgroundColor: "#1A1A1A" }}
-      >
-        {/* Background shard */}
-        <div
-          className="absolute top-0 right-0 w-[35%] h-[60%] hidden lg:block"
-          style={{
-            clipPath: "polygon(40% 0, 100% 0, 100% 80%, 20% 100%)",
-            backgroundImage: "url(https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop&q=80)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "grayscale(80%)",
-            opacity: 0.04,
-          }}
-          aria-hidden="true"
-        />
-
-        <div className="mx-auto max-w-5xl relative z-10">
-          {/* Section header */}
-          <div className="mb-14 sm:mb-20 text-center">
-            <MaskReveal delay={0.1}>
-              <span className="font-syne text-[10px] sm:text-xs tracking-[0.2em] uppercase block mb-4" style={{ color: "#E8503A" }}>
-                Core Goals
-              </span>
-            </MaskReveal>
-            <MaskReveal delay={0.2}>
-              <h2 className="font-display leading-[1] tracking-tight" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#FBFBFB" }}>
-                מטרות העל
-              </h2>
-            </MaskReveal>
+      {/* CORE GOALS */}
+      <section ref={goalsRef} className="relative py-32 px-6 sm:px-12 bg-[#111]">
+        <div className="max-w-7xl mx-auto relative z-10">
+          
+          <div className="mb-20 text-center">
+             <span className="font-brutal font-black text-2xl tracking-widest text-[#CCFF00] uppercase block mb-4">CORE GOALS</span>
+             <h2 className="font-brutal font-black text-6xl sm:text-8xl text-white">מטרות העל</h2>
           </div>
 
-          {/* Goals grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
-            {/* Goal 1 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            {/* GOAL 1 */}
             <motion.div
-              className="relative group cursor-pointer"
+              className="relative cursor-pointer group h-full flex flex-col"
               onClick={() => setGoal1Revealed(!goal1Revealed)}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               animate={goalsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2, duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ delay: 0.1 }}
             >
-              <div className="relative overflow-hidden" style={{ backgroundColor: goal1Revealed ? "#222" : "#252525" }}>
-                {/* Background image */}
-                <div
-                  className="absolute inset-0 transition-opacity duration-700"
-                  style={{
-                    backgroundImage: "url(https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop&q=80)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    filter: "grayscale(60%)",
-                    opacity: goal1Revealed ? 0.08 : 0.05,
-                  }}
-                  aria-hidden="true"
-                />
+              <div className="bg-[#FF3366] border-8 border-black text-black p-8 sm:p-12 shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] group-hover:-translate-y-2 group-hover:shadow-[16px_16px_0px_0px_rgba(255,255,255,1)] transition-all flex flex-col h-full overflow-hidden relative">
+                
+                <span className="absolute top-4 left-4 font-brutal font-black text-[10rem] leading-none text-black/10 select-none pointer-events-none">
+                  01
+                </span>
 
-                {/* Index */}
-                <span className="absolute bottom-4 right-5 font-syne text-[5rem] sm:text-[6rem] font-bold leading-none select-none" style={{ color: "rgba(251,251,251,0.04)" }} aria-hidden="true">01</span>
-
-                <div className="relative z-10 p-7 sm:p-10">
-                  {/* Header — always visible */}
-                  <div className="flex items-start justify-between gap-4 mb-2">
-                    <div>
-                      <div className="inline-block px-3 py-1 mb-4" style={{ backgroundColor: "rgba(232,80,58,0.12)", border: "1px solid rgba(232,80,58,0.2)" }}>
-                        <span className="font-display text-sm sm:text-base" style={{ color: "#E8503A" }}>מטרה אחת</span>
-                      </div>
-                      <p className="font-display text-xl sm:text-2xl" style={{ color: "#FBFBFB" }}>
-                        נלמדת מהמילים:{" "}
-                        <span style={{ color: "#E8503A" }}>&quot;חנוך לנער על פי דרכו&quot;</span>
-                      </p>
-                    </div>
-                    <motion.div
-                      className="mt-2 flex-shrink-0 w-8 h-8 border border-white/10 flex items-center justify-center group-hover:border-accent/30 transition-colors duration-300"
-                      animate={{ rotate: goal1Revealed ? 45 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <span className="text-white/40 text-lg leading-none">+</span>
-                    </motion.div>
+                <div className="flex justify-between items-start mb-8 relative z-10">
+                  <div className="bg-black text-white font-brutal font-black px-4 py-2 text-xl border-4 border-white shadow-[4px_4px_0px_0px_#fff]">
+                    מטרה אחת
                   </div>
-
-                  {!goal1Revealed && (
-                    <motion.div
-                      className="flex items-center gap-3 mt-5 px-5 py-3 border border-accent/20 group-hover:border-accent/50 transition-colors duration-300 w-fit"
-                      animate={{ y: [0, -3, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <span className="font-display text-base sm:text-lg" style={{ color: "rgba(251,251,251,0.7)" }}>
-                        לחצו לגילוי המשמעות המלאה
-                      </span>
-                      <motion.span
-                        className="text-accent text-xl"
-                        animate={{ x: [0, -5, 0] }}
-                        transition={{ duration: 1.2, repeat: Infinity }}
-                      >
-                        ←
-                      </motion.span>
-                    </motion.div>
-                  )}
-
-                  {/* Revealed content */}
-                  <AnimatePresence>
-                    {goal1Revealed && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                        className="overflow-hidden"
-                      >
-                        <motion.div
-                          className="w-10 h-[2px] bg-accent my-6"
-                          initial={{ scaleX: 0 }}
-                          animate={{ scaleX: 1 }}
-                          transition={{ delay: 0.2, duration: 0.4 }}
-                          style={{ transformOrigin: "right" }}
-                        />
-                        <motion.p
-                          className="text-sm sm:text-base leading-[2]"
-                          style={{ color: "rgba(251,251,251,0.6)" }}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3, duration: 0.5 }}
-                        >
-                          המשמעות הנובעת מכך הינה לאפשר לתלמיד להתקדם בהתאם ליכולתו
-                          האישית ולממש את הפוטנציאל הטמון בו, זאת באמצעות גיוון דרכי
-                          ההוראה, הקניית כלים ומיומנויות שונות שיאפשרו לו להצליח בכל
-                          תחומי הידע השונים. כמו כן לפתח יכולת זו עד כי הילד ילמד להיות
-                          לומד עצמאי בעל מכוונות עצמאית ללמידה.
-                        </motion.p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <div className="w-12 h-12 bg-white text-black border-4 border-black flex items-center justify-center font-black text-3xl transition-transform" style={{ transform: goal1Revealed ? "rotate(45deg)" : "rotate(0deg)" }}>
+                    +
+                  </div>
                 </div>
 
-                {/* Bottom accent */}
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300" style={{ transformOrigin: "right" }} />
+                <div className="relative z-10 mb-8">
+                   <p className="font-brutal text-2xl sm:text-4xl font-black leading-tight">
+                     נלמדת מהמילים:<br/>
+                     <span className="text-white underline decoration-black decoration-4 underline-offset-8">"חנוך לנער על פי דרכו"</span>
+                   </p>
+                </div>
+
+                {!goal1Revealed && (
+                  <div className="mt-auto font-brutal font-bold text-xl uppercase tracking-wider text-black bg-white/40 px-4 py-2 border-2 border-black inline-block w-fit">
+                    לחצו לגילוי המשמעות המלאה
+                  </div>
+                )}
+
+                <AnimatePresence>
+                  {goal1Revealed && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden mt-4 bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+                    >
+                      <p className="font-brutal font-medium text-xl leading-[1.6]">
+                        המשמעות הנובעת מכך הינה לאפשר לתלמיד להתקדם בהתאם ליכולתו הרגשית ולממש את הפוטנציאל הטמון בו, זאת באמצעות גיוון דרכי ההוראה, הקניית כלים ומיומנויות שונות שיאפשרו לו להצליח בכל תחומי הידע השונים. כמו כן לפתח יכולת זו עד כי הילד ילמד להיות לומד עצמאי בעל מכוונות עצמית ללמידה.
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </motion.div>
 
-            {/* Goal 2 */}
+            {/* GOAL 2 */}
             <motion.div
-              className="relative group cursor-pointer"
+              className="relative cursor-pointer group h-full flex flex-col"
               onClick={() => setGoal2Revealed(!goal2Revealed)}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               animate={goalsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.35, duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ delay: 0.2 }}
             >
-              <div className="relative overflow-hidden" style={{ backgroundColor: goal2Revealed ? "#222" : "#252525" }}>
-                <div
-                  className="absolute inset-0 transition-opacity duration-700"
-                  style={{
-                    backgroundImage: "url(https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=400&fit=crop&q=80)",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    filter: "grayscale(60%)",
-                    opacity: goal2Revealed ? 0.08 : 0.05,
-                  }}
-                  aria-hidden="true"
-                />
+              <div className="bg-[#FFD700] border-8 border-black text-black p-8 sm:p-12 shadow-[12px_12px_0px_0px_rgba(255,255,255,1)] group-hover:-translate-y-2 group-hover:shadow-[16px_16px_0px_0px_rgba(255,255,255,1)] transition-all flex flex-col h-full overflow-hidden relative">
+                
+                <span className="absolute top-4 left-4 font-brutal font-black text-[10rem] leading-none text-black/10 select-none pointer-events-none">
+                  02
+                </span>
 
-                <span className="absolute bottom-4 right-5 font-syne text-[5rem] sm:text-[6rem] font-bold leading-none select-none" style={{ color: "rgba(251,251,251,0.04)" }} aria-hidden="true">02</span>
-
-                <div className="relative z-10 p-7 sm:p-10">
-                  <div className="flex items-start justify-between gap-4 mb-2">
-                    <div>
-                      <div className="inline-block px-3 py-1 mb-4" style={{ backgroundColor: "rgba(251,251,251,0.04)", border: "1px solid rgba(251,251,251,0.1)" }}>
-                        <span className="font-display text-sm sm:text-base" style={{ color: "rgba(251,251,251,0.7)" }}>מטרה שנייה</span>
-                      </div>
-                      <p className="font-display text-xl sm:text-2xl" style={{ color: "#FBFBFB" }}>
-                        נלמדת מהמילה:{" "}
-                        <span style={{ color: "rgba(251,251,251,0.5)" }}>&quot;חנוך לנער...&quot;</span>
-                      </p>
-                    </div>
-                    <motion.div
-                      className="mt-2 flex-shrink-0 w-8 h-8 border border-white/10 flex items-center justify-center group-hover:border-accent/30 transition-colors duration-300"
-                      animate={{ rotate: goal2Revealed ? 45 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <span className="text-white/40 text-lg leading-none">+</span>
-                    </motion.div>
+                <div className="flex justify-between items-start mb-8 relative z-10">
+                  <div className="bg-black text-white font-brutal font-black px-4 py-2 text-xl border-4 border-white shadow-[4px_4px_0px_0px_#fff]">
+                    מטרה שנייה
                   </div>
-
-                  {!goal2Revealed && (
-                    <motion.div
-                      className="flex items-center gap-3 mt-5 px-5 py-3 border border-white/10 group-hover:border-white/25 transition-colors duration-300 w-fit"
-                      animate={{ y: [0, -3, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <span className="font-display text-base sm:text-lg" style={{ color: "rgba(251,251,251,0.6)" }}>
-                        לחצו לגילוי המשמעות המלאה
-                      </span>
-                      <motion.span
-                        className="text-lg" style={{ color: "rgba(251,251,251,0.4)" }}
-                        animate={{ x: [0, -5, 0] }}
-                        transition={{ duration: 1.2, repeat: Infinity }}
-                      >
-                        ←
-                      </motion.span>
-                    </motion.div>
-                  )}
-
-                  <AnimatePresence>
-                    {goal2Revealed && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                        className="overflow-hidden"
-                      >
-                        <motion.div
-                          className="w-10 h-[2px] my-6"
-                          style={{ transformOrigin: "right", backgroundColor: "rgba(251,251,251,0.15)" }}
-                          initial={{ scaleX: 0 }}
-                          animate={{ scaleX: 1 }}
-                          transition={{ delay: 0.2, duration: 0.4 }}
-                        />
-                        <motion.p
-                          className="text-sm sm:text-base leading-[2]"
-                          style={{ color: "rgba(251,251,251,0.6)" }}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3, duration: 0.5 }}
-                        >
-                          משמעות המילה חינוך הינה קביעת עליונות של ערכים מסוימים בליבו של
-                          הילד להלכה ומעשה. כלומר להקנות לתלמיד ערכים והרגלים אשר יעצבו
-                          את אישיותו, יובילו אותו להיות אזרח טוב האוהב את עמו וארצו
-                          ומקפיד לנהל אורח חיים על פי רוח ההלכה והמצוות.
-                        </motion.p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  <div className="w-12 h-12 bg-white text-black border-4 border-black flex items-center justify-center font-black text-3xl transition-transform" style={{ transform: goal2Revealed ? "rotate(45deg)" : "rotate(0deg)" }}>
+                    +
+                  </div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" style={{ transformOrigin: "right", backgroundColor: "rgba(251,251,251,0.15)" }} />
+                <div className="relative z-10 mb-8">
+                   <p className="font-brutal text-2xl sm:text-4xl font-black leading-tight">
+                     נלמדת מהמילה:<br/>
+                     <span className="text-white underline decoration-black decoration-4 underline-offset-8">"חנוך לנער..."</span>
+                   </p>
+                </div>
+
+                {!goal2Revealed && (
+                  <div className="mt-auto font-brutal font-bold text-xl uppercase tracking-wider text-black bg-white/40 px-4 py-2 border-2 border-black inline-block w-fit">
+                    לחצו לגילוי המשמעות המלאה
+                  </div>
+                )}
+
+                <AnimatePresence>
+                  {goal2Revealed && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden mt-4 bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+                    >
+                      <p className="font-brutal font-medium text-xl leading-[1.6]">
+                        משמעות המילה חינוך הינה קביעת עליונות של ערכים מסוימים בליבו של הילד להלכה ומעשה. כלומר להקנות לתלמיד ערכים והרגלים אשר יעצבו את אישיותו, יובילו אותו להיות אזרח טוב האוהב את עמו וארצו ומקפיד לנהל אורח חיים על פי רוח ההלכה והמצוות.
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* ═══════ CLOSING QUOTE ═══════ */}
-      <section className="relative py-20 sm:py-28 px-6 sm:px-10 bg-surface noise-bg overflow-hidden">
-        <div
-          className="absolute top-0 md:-top-4 left-1/2 -translate-x-1/2 font-display select-none pointer-events-none whitespace-nowrap hidden sm:block"
-          style={{ fontSize: "clamp(4rem, 12vw, 10rem)", color: "rgba(26,26,26,0.06)", lineHeight: 1 }}
-          aria-hidden="true"
-        >
-          כל ילד
+      {/* CLOSING / EVERY CHILD */}
+      <section className="py-32 px-6 bg-[#CCFF00] border-t-8 border-black text-center relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] flex justify-center items-center opacity-[0.1] mix-blend-multiply pointer-events-none">
+          <span className="font-brutal font-black text-[20vw] leading-none text-black select-none">EVERY CHILD</span>
         </div>
 
         <motion.div
-          className="relative z-10 text-center max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10 max-w-4xl mx-auto bg-white border-8 border-black p-12 md:p-20 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)]"
         >
-          <span className="font-syne text-[10px] sm:text-xs tracking-[0.25em] uppercase block mb-6" style={{ color: "#E8503A" }}>
-            Every Child
-          </span>
-          <blockquote className="font-display leading-[1.15] tracking-tight mb-4" style={{ fontSize: "clamp(1.8rem, 5vw, 3.2rem)", color: "#1A1A1A" }}>
-            &ldquo;כל ילד הוא עולם ומלואו&rdquo;
-          </blockquote>
-          <p className="text-base sm:text-lg mb-8" style={{ color: "#555555" }}>
-            אנו מאמינים בכל תלמיד ובפוטנציאל הייחודי שלו
-          </p>
-          <motion.hr className="divider-accent w-12 mx-auto" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ delay: 0.3, duration: 0.5 }} style={{ transformOrigin: "center" }} />
+           <span className="font-brutal font-black text-xl tracking-widest uppercase text-white bg-black px-4 py-2 mb-8 inline-block shadow-[4px_4px_0px_0px_#FF3366]">
+             המטרה המובילה
+           </span>
+           
+           <blockquote className="font-brutal font-black text-5xl sm:text-7xl leading-tight mb-8 text-black">
+             "כל ילד הוא עולם ומלואו"
+           </blockquote>
+           
+           <div className="w-full h-2 bg-black mb-8"></div>
+           
+           <p className="font-brutal font-bold text-2xl sm:text-4xl text-black">
+             אנו מאמינים <span className="bg-[#00E5FF] px-2 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">בכל תלמיד</span> ובפוטנציאל הייחודי שלו
+           </p>
         </motion.div>
+
       </section>
     </div>
   );

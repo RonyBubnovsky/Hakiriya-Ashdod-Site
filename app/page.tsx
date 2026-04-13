@@ -1,489 +1,258 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import MaskReveal from "./components/MaskReveal";
-import GeometricShard from "./components/GeometricShard";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 
-/* ───── Data (content preserved exactly) ───── */
 const values = [
   {
     title: "מצוינות",
     text: "שאיפה מתמדת להישגים גבוהים ולצמיחה אישית",
-    image:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop&q=80",
-    shape: "diagonal-right" as const,
-    direction: "left" as const,
+    image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&h=800&fit=crop&q=80",
+    color: "bg-[#FF3366]",
+    align: "md:justify-start"
   },
   {
     title: "נשמה",
     text: "חינוך מלב אל לב, עם חמימות ואכפתיות",
-    image:
-      "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=600&fit=crop&q=80",
-    shape: "wedge" as const,
-    direction: "right" as const,
+    image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1200&h=800&fit=crop&q=80",
+    color: "bg-[#00E5FF]",
+    align: "md:justify-end"
   },
   {
     title: "קהילתיות",
     text: "שותפות בין תלמידים, מורים והורים",
-    image:
-      "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&q=80",
-    shape: "parallelogram" as const,
-    direction: "up" as const,
+    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200&h=800&fit=crop&q=80",
+    color: "bg-[#FFD700]",
+    align: "md:justify-start"
   },
   {
     title: "יצירתיות",
     text: "עידוד חשיבה יוצרת וביטוי אישי",
-    image:
-      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=600&fit=crop&q=80",
-    shape: "trapezoid" as const,
-    direction: "scale" as const,
-  },
+    image: "https://images.unsplash.com/photo-1511629091441-ee46146481b6?w=1200&h=800&fit=crop&q=80",
+    color: "bg-[#CCFF00]",
+    align: "md:justify-end"
+  }
 ];
 
-/* ───── Stagger utility ───── */
-function StaggerChildren({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: 0.12 } },
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-function FadeChild({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <motion.div
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] },
-        },
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/* ═══════════════════════════════════════════════
-   HOME PAGE
-   ═══════════════════════════════════════════════ */
 export default function Home() {
-  const welcomeRef = useRef<HTMLDivElement>(null);
-  const welcomeInView = useInView(welcomeRef, {
-    once: true,
-    margin: "-100px",
-  });
+  const [currentDate, setCurrentDate] = useState("");
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    setCurrentDate(new Date().toLocaleDateString('he-IL'));
+  }, []);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
+  const yImage1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
-    <div className="overflow-hidden">
-      {/* ═══════ HERO SECTION ═══════ */}
-      <section
-        className="relative min-h-[100vh] flex items-center justify-center px-4 sm:px-10 py-20 sm:py-28 overflow-hidden"
-        style={{ backgroundColor: "#1A1A1A" }}
-      >
-        {/* ── Background photo shards (geometric broken shapes) ── */}
-
-        {/* Shard 1 — top-left diagonal */}
-        <motion.div
-          className="absolute top-0 left-0 w-[40%] sm:w-[35%] h-[35%] sm:h-[50%]"
-          style={{
-            clipPath: "polygon(0 0, 100% 0, 70% 100%, 0 80%)",
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop&q=80)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "grayscale(60%) contrast(1.1)",
-          }}
-          initial={{ opacity: 0, x: -60, scale: 1.1 }}
-          animate={{ opacity: 0.2, x: 0, scale: 1 }}
-          transition={{ delay: 0.3, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-          whileHover={{ opacity: 0.4, scale: 1.03, transition: { duration: 0.15 } }}
-          aria-hidden="true"
-        >
-          <div
-            className="absolute inset-0"
-            style={{ backgroundColor: "rgba(232, 80, 58, 0.12)" }}
-          />
-        </motion.div>
-
-        {/* Shard 2 — top-right wedge */}
-        <motion.div
-          className="absolute top-0 right-0 w-[35%] sm:w-[30%] h-[32%] sm:h-[45%]"
-          style={{
-            clipPath: "polygon(30% 0, 100% 0, 100% 85%, 0 100%)",
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop&q=80)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "grayscale(70%) contrast(1.05)",
-          }}
-          initial={{ opacity: 0, x: 60, scale: 1.1 }}
-          animate={{ opacity: 0.18, x: 0, scale: 1 }}
-          transition={{ delay: 0.5, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-          whileHover={{ opacity: 0.35, scale: 1.03, transition: { duration: 0.15 } }}
-          aria-hidden="true"
-        >
-          <div
-            className="absolute inset-0"
-            style={{ backgroundColor: "rgba(26, 26, 26, 0.3)" }}
-          />
-        </motion.div>
-
-        {/* Shard 3 — bottom-left trapezoid */}
-        <motion.div
-          className="absolute bottom-0 left-0 w-[32%] sm:w-[28%] h-[28%] sm:h-[40%]"
-          style={{
-            clipPath: "polygon(0 20%, 100% 0, 85% 100%, 0 100%)",
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&q=80)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "grayscale(65%) contrast(1.1)",
-          }}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 0.16, y: 0 }}
-          transition={{ delay: 0.7, duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-          whileHover={{ opacity: 0.32, scale: 1.04, transition: { duration: 0.15 } }}
-          aria-hidden="true"
-        >
-          <div
-            className="absolute inset-0"
-            style={{ backgroundColor: "rgba(196, 163, 90, 0.1)" }}
-          />
-        </motion.div>
-
-        {/* Shard 4 — bottom-right parallelogram */}
-        <motion.div
-          className="absolute bottom-0 right-0 w-[33%] sm:w-[32%] h-[25%] sm:h-[38%]"
-          style={{
-            clipPath: "polygon(15% 0, 100% 15%, 100% 100%, 0 100%)",
-            backgroundImage:
-              "url(https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&h=600&fit=crop&q=80)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            filter: "grayscale(55%) contrast(1.15)",
-          }}
-          initial={{ opacity: 0, y: 50, x: 30 }}
-          animate={{ opacity: 0.15, y: 0, x: 0 }}
-          transition={{ delay: 0.9, duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-          whileHover={{ opacity: 0.32, scale: 1.03, transition: { duration: 0.15 } }}
-          aria-hidden="true"
-        >
-          <div
-            className="absolute inset-0"
-            style={{ backgroundColor: "rgba(232, 80, 58, 0.08)" }}
-          />
-        </motion.div>
-
-        {/* ── Geometric decoration lines ── */}
-
-        {/* Diagonal line — top-right to center */}
-        <motion.div
-          className="absolute top-[12%] right-[15%] w-[1px] h-[20%] hidden sm:block"
-          style={{
-            transformOrigin: "top",
-            backgroundColor: "#E8503A",
-            opacity: 0.25,
-            transform: "rotate(-25deg)",
-          }}
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ delay: 1.4, duration: 0.8 }}
-          aria-hidden="true"
+    <div ref={containerRef} className="relative min-h-screen bg-transparent text-[#111111] overflow-x-hidden font-sans" dir="rtl">
+      
+      {/* Global Transparent Background Video - Glassmorphism style */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <video 
+          autoPlay loop muted playsInline 
+          src="/hero-video.mp4" 
+          className="w-full h-full object-cover saturate-150 contrast-125" 
         />
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-md" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F4F4F0]" />
+      </div>
 
-        {/* Horizontal thin line — left side */}
-        <motion.div
-          className="absolute top-[50%] left-0 h-[1px] w-[12%] sm:w-[18%] hidden sm:block"
-          style={{ transformOrigin: "left", backgroundColor: "rgba(251,251,251,0.08)" }}
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ delay: 1.6, duration: 0.6 }}
-          aria-hidden="true"
-        />
+      {/* Import specific bold fonts for anti-slop aesthetic */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;900&display=swap');
+        .font-brutal { font-family: 'Rubik', sans-serif; }
+        .noise {
+          position: absolute; inset: 0; pointer-events: none; z-index: 50; opacity: 0.04;
+          background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\"/%3E%3C/svg%3E');
+        }
+      `}} />
+      <div className="noise"></div>
 
-        {/* Corner accent markers */}
-        <motion.div
-          className="absolute top-6 left-6 sm:top-10 sm:left-10 z-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          aria-hidden="true"
-        >
-          <div className="w-8 h-[2px] bg-accent mb-[6px]" />
-          <div className="w-[2px] h-8 bg-accent" />
-        </motion.div>
-        <motion.div
-          className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 z-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.6 }}
-          aria-hidden="true"
-        >
-          <div className="flex flex-col items-end">
-            <div className="w-[2px] h-8 bg-accent mb-[6px]" />
-            <div className="w-8 h-[2px] bg-accent" />
-          </div>
-        </motion.div>
-
-        {/* ── Main centered composition ── */}
-        <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto">
-          {/* ── LARGE School Logo with hover effects ── */}
-          <motion.div
-            className="relative mb-10 sm:mb-14"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
-            whileHover={{ scale: 1.05 }}
-          >
-            {/* Logo container */}
-            <div className="relative w-40 h-40 sm:w-52 sm:h-52 lg:w-60 lg:h-60 flex items-center justify-center">
-              <motion.img
-                src="/school-logo.jpg"
-                alt="לוגו בית חינוך הקריה"
-                className="w-full h-full object-contain relative z-10"
-                style={{ filter: "brightness(1.15) contrast(1.05)" }}
-                whileHover={{ rotate: 1, scale: 1.03 }}
-                transition={{ duration: 0.5 }}
-              />
-            </div>
-          </motion.div>
-
-          {/* Main title */}
-          <MaskReveal delay={0.4} className="mb-2">
-            <h1
-              className="font-display font-normal leading-[0.9] tracking-tight"
-              style={{
-                fontSize: "clamp(3rem, 9vw, 7.5rem)",
-                color: "#FBFBFB",
-              }}
-            >
-              בית חינוך
-            </h1>
-          </MaskReveal>
-          <MaskReveal delay={0.55} className="mb-8 sm:mb-10">
-            <span
-              className="font-display font-normal leading-[0.9] tracking-tight relative inline-block"
-              style={{
-                fontSize: "clamp(3rem, 9vw, 7.5rem)",
-                color: "#FBFBFB",
-              }}
-            >
-              הקריה
-              {/* Accent underline */}
-              <motion.span
-                className="absolute -bottom-2 sm:-bottom-3 right-0 h-[3px]"
-                style={{ backgroundColor: "#E8503A" }}
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{
-                  delay: 1.3,
-                  duration: 0.8,
-                  ease: [0.25, 0.1, 0.25, 1],
-                }}
-              />
+      {/* Hero Section: Asymmetric, Brutalist but warm */}
+      <section className="relative min-h-[90vh] px-6 sm:px-12 pt-24 lg:pt-32 pb-20 flex flex-col justify-between max-w-[1600px] mx-auto z-10">
+        
+        {/* Top bar info */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-20 lg:mb-0">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <span className="font-brutal font-medium text-xs tracking-widest uppercase bg-black text-white px-4 py-2 hover:bg-[#FF3366] transition-colors cursor-default" suppressHydrationWarning>
+              {currentDate || "נטען..."}
             </span>
-          </MaskReveal>
+          </motion.div>
+          
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="font-brutal font-light text-sm max-w-xs text-black/60">
+            בית ספר יסודי • אשדוד<br/>
+            מובילים בחינוך ערכי וטכנולוגי
+          </motion.div>
+        </div>
 
-          {/* Thin vertical rule */}
-          <motion.div
-            className="w-[1px] h-8 sm:h-12 mb-6 sm:mb-8"
-            style={{ transformOrigin: "top", backgroundColor: "rgba(251, 251, 251, 0.15)" }}
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ delay: 0.9, duration: 0.6 }}
-          />
-
-          {/* Subtitle */}
-          <MaskReveal delay={0.75}>
-            <p
-              className="text-lg sm:text-xl lg:text-2xl font-light tracking-wide"
-              style={{ color: "rgba(251, 251, 251, 0.55)" }}
+        {/* Main Hero Layout */}
+        <div className="flex flex-col items-center justify-center relative mt-auto mb-20">
+          
+          {/* Huge Typo Section */}
+          <div className="w-full relative z-20 text-center flex flex-col items-center">
+            {/* White glow behind text for contrast */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[120%] bg-white/60 blur-[80px] rounded-full -z-10 pointer-events-none" />
+            
+            {/* Added back Logo */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }} 
+              animate={{ opacity: 1, scale: 1 }} 
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} 
+              className="mb-8 w-32 h-32 md:w-48 md:h-48"
             >
-              חינוך למצוינות עם נשמה
-            </p>
-          </MaskReveal>
+               <img src="/school-logo.jpg" alt="לוגו בית חינוך הקריה" className="w-full h-full object-contain mix-blend-multiply" />
+            </motion.div>
+            <motion.h1 
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="font-brutal font-black text-[15vw] sm:text-[12vw] lg:text-[8rem] leading-[0.85] tracking-tight uppercase"
+            >
+              בית ספר<br/>
+              <span className="relative inline-block mt-2">
+                <span className="relative z-10 text-transparent" style={{ WebkitTextStroke: '2px #111' }}>הקריה</span>
+                <motion.div 
+                  initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+                  className="absolute bottom-1 right-0 h-1/2 bg-[#00E5FF] z-0 -rotate-2"
+                />
+              </span>
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 1 }}
+              className="font-brutal font-light text-xl md:text-3xl max-w-2xl mt-12 leading-relaxed"
+            >
+              העתיד מתחיל כאן. 
+              <br/>סביבת למידה חדשנית שלא מתנצלת על היותה שונה. מרחב שחושב מחוץ למסגרת.
+            </motion.p>
+          </div>
+          
         </div>
       </section>
 
-      {/* ═══════ WELCOME SECTION ═══════ */}
-      <section
-        className="relative py-24 sm:py-32 px-6 sm:px-10 lg:px-16 overflow-hidden"
-        style={{ backgroundColor: "#1A1A1A" }}
-      >
-        {/* Background watermark — hidden on mobile to prevent overflow */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display select-none pointer-events-none whitespace-nowrap hidden sm:block"
-          style={{
-            fontSize: "clamp(6rem, 15vw, 14rem)",
-            color: "rgba(251, 251, 251, 0.03)",
-            lineHeight: 1,
-          }}
-          aria-hidden="true"
-        >
-          ברוכים הבאים
-        </div>
-
-        <div
-          ref={welcomeRef}
-          className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10"
-        >
-          {/* Heading side */}
-          <div>
-            <MaskReveal delay={0.1}>
-              <span
-                className="font-syne text-xs tracking-[0.2em] uppercase block mb-4"
-                style={{ color: "#E8503A" }}
-              >
-                Welcome
-              </span>
-            </MaskReveal>
-            <MaskReveal delay={0.2}>
-              <h2 className="font-display text-fluid-section text-text-inverse mb-6">
-                ברוכים הבאים
-              </h2>
-            </MaskReveal>
-            <motion.hr
-              className="divider-accent w-16 mb-0"
-              initial={{ scaleX: 0 }}
-              animate={welcomeInView ? { scaleX: 1 } : { scaleX: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              style={{ transformOrigin: "right" }}
-            />
+      {/* Editorial Scrolling Values */}
+      <section className="relative py-24 sm:py-32 px-6 sm:px-12 border-t-2 border-black bg-white">
+        <div className="max-w-[1600px] mx-auto">
+          
+          <div className="mb-24 md:mb-32">
+            <h2 className="font-brutal font-black text-5xl sm:text-6xl md:text-8xl w-full border-b-[6px] border-black pb-4 mb-4">
+              הערכים המנחים
+            </h2>
           </div>
 
-          {/* Body text side */}
-          <div>
-            <MaskReveal delay={0.35}>
-              <p
-                className="text-fluid-body leading-[2]"
-                style={{ color: "rgba(251, 251, 251, 0.75)" }}
+          <div className="flex flex-col gap-24 lg:gap-40">
+            {values.map((val, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 0.8 }}
+                className={`flex w-full ${val.align} relative`}
               >
-                בית חינוך הקריה הוא בית ספר יסודי בלב העיר אשדוד, המחנך לערכים
-                של{" "}
-                <strong style={{ color: "#FBFBFB" }}>מצוינות</strong>,{" "}
-                <strong style={{ color: "#FBFBFB" }}>יצירתיות</strong> ו
-                <strong style={{ color: "#FBFBFB" }}>אכפתיות</strong>. אנו
-                מאמינים שכל ילד וילדה הם עולם ומלואו, ושואפים להעניק לכל תלמיד
-                את הכלים להצליח ולצמוח.
-              </p>
-            </MaskReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ VALUES SECTION ═══════ */}
-      <section className="relative py-24 sm:py-32 px-6 sm:px-10 lg:px-16 bg-surface noise-bg">
-        <div className="mx-auto max-w-7xl relative z-10">
-          {/* Section header */}
-          <div className="mb-16 lg:mb-20">
-            <MaskReveal delay={0.1}>
-              <span
-                className="font-syne text-xs tracking-[0.2em] uppercase block mb-4"
-                style={{ color: "#E8503A" }}
-              >
-                Our Values
-              </span>
-            </MaskReveal>
-            <MaskReveal delay={0.2}>
-              <h2 className="font-display text-fluid-section text-text-primary mb-4">
-                הערכים שלנו
-              </h2>
-            </MaskReveal>
-            <MaskReveal delay={0.3}>
-              <p className="text-fluid-body text-text-secondary max-w-lg">
-                הערכים המנחים אותנו בדרך לחינוך מיטבי
-              </p>
-            </MaskReveal>
-          </div>
-
-          {/* Asymmetric geometric grid */}
-          <StaggerChildren className="values-grid-editorial">
-            {values.map((value, index) => (
-              <FadeChild key={value.title}>
-                <div className="value-tile w-full h-full group">
-                  {/* Clipped image background */}
-                  <GeometricShard
-                    src={value.image}
-                    alt={value.title}
-                    shape={value.shape}
-                    className="absolute inset-0 w-full h-full"
-                    delay={index * 0.15}
-                    direction={value.direction}
-                    overlayColor="rgba(26, 26, 26, 0.2)"
-                    grayscale={25}
-                  />
-
-                  {/* Content overlay */}
-                  <div className="absolute inset-0 z-10 flex flex-col justify-end p-6 sm:p-8">
-                    {/* Index number */}
-                    <span
-                      className="font-syne text-[5rem] sm:text-[6rem] font-bold leading-none absolute top-4 right-6 select-none"
-                      style={{ color: "rgba(251, 251, 251, 0.08)" }}
-                      aria-hidden="true"
-                    >
-                      {String(index + 1).padStart(2, "0")}
+                <div className={`w-full lg:w-[80%] flex flex-col md:flex-row gap-8 lg:gap-16 items-center ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                  
+                  {/* Heavy Typography Block */}
+                  <div className="w-full md:w-1/2 z-20">
+                    <span className="font-mono text-xl font-bold bg-black text-white px-3 py-1 inline-block mb-6">
+                      0{idx + 1}
                     </span>
-
-                    {/* Value title */}
-                    <h3
-                      className="font-display text-fluid-value text-text-inverse mb-2 relative"
-                    >
-                      {value.title}
-                      <motion.span
-                        className="absolute -bottom-1 right-0 h-[2px] bg-accent"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: "40%" }}
-                        viewport={{ once: true }}
-                        transition={{
-                          delay: 0.5 + index * 0.1,
-                          duration: 0.6,
-                        }}
-                      />
+                    <h3 className="font-brutal font-black text-4xl sm:text-5xl lg:text-6xl mb-6 leading-none">
+                      {val.title}
                     </h3>
-
-                    {/* Value description */}
-                    <p
-                      className="text-sm sm:text-base max-w-xs"
-                      style={{ color: "rgba(251, 251, 251, 0.7)" }}
-                    >
-                      {value.text}
+                    <p className="font-brutal font-light text-xl sm:text-2xl text-black/70 leading-normal">
+                      {val.text}
                     </p>
                   </div>
+
+                  {/* Brutalist Image Block */}
+                  <div className="w-full md:w-1/2 relative aspect-square group perspective-[1000px]">
+                    <div className={`absolute inset-0 ${val.color} translate-x-3 sm:translate-x-4 lg:translate-x-8 translate-y-3 sm:translate-y-4 lg:translate-y-8 border-2 border-black transition-transform group-hover:translate-x-6 group-hover:translate-y-6 duration-500`}></div>
+                    <img 
+                      src={val.image} 
+                      alt={val.title}
+                      className="absolute inset-0 w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 border-2 border-black transition-all duration-700"
+                    />
+                  </div>
+                  
                 </div>
-              </FadeChild>
+              </motion.div>
             ))}
-          </StaggerChildren>
+          </div>
         </div>
       </section>
+
+      {/* Bold CTA Section */}
+      <section className="min-h-[40vh] sm:min-h-[50vh] bg-black text-white px-6 py-24 flex flex-col items-center justify-center text-center relative overflow-hidden">
+        
+        {/* Deep Gradient Background decoration & Video back in CTA */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+           <video 
+             autoPlay loop muted playsInline 
+             src="https://www.w3schools.com/html/mov_bbb.mp4" 
+             className="w-full h-full object-cover opacity-20 mix-blend-screen scale-110 blur-sm"
+           />
+           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+        </div>
+        <motion.div 
+          animate={{ rotate: 360 }}
+          transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
+          className="absolute -top-[50%] -right-[20%] w-[100vw] h-[100vw] rounded-full bg-gradient-to-r from-[#FF3366] via-transparent to-transparent opacity-30 blur-3xl pointer-events-none"
+        />
+        
+        <h2 className="font-brutal font-black text-[12vw] sm:text-[8vw] leading-none mb-12 relative z-10 uppercase">
+          הצטרפו אלינו
+        </h2>
+        <motion.button 
+          onClick={() => setIsFormOpen(true)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="font-brutal font-bold text-xl sm:text-2xl bg-[#CCFF00] text-black px-8 sm:px-12 py-4 sm:py-6 rounded-none border-4 border-[#CCFF00] hover:bg-black hover:text-[#CCFF00] transition-colors shadow-[6px_6px_0px_#fff] sm:shadow-[8px_8px_0px_#fff] hover:shadow-[10px_10px_0px_#fff] sm:hover:shadow-[12px_12px_0px_#fff] z-10"
+        >
+          להרשמה ותיאום ביקור &rarr;
+        </motion.button>
+      </section>
+
+      {/* Mock Form Modal */}
+      {isFormOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
+          <motion.div 
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="w-full max-w-lg bg-[#F4F4F0] text-black p-8 sm:p-12 border-4 border-black shadow-[16px_16px_0px_#FF3366] relative"
+          >
+            <button 
+              onClick={() => setIsFormOpen(false)}
+              className="absolute top-4 left-4 text-2xl font-black bg-black text-white w-10 h-10 hover:bg-[#FF3366] transition-colors flex items-center justify-center pt-1"
+            >
+              &times;
+            </button>
+            <h3 className="font-brutal font-black text-3xl sm:text-4xl mb-8 uppercase text-right">השאירו פרטים</h3>
+            <form className="flex flex-col gap-6" onSubmit={(e) => { e.preventDefault(); alert("Mock form submitted!"); setIsFormOpen(false); }}>
+              <div className="flex flex-col text-right">
+                <label className="font-brutal font-bold text-sm mb-2 uppercase text-black/70">שם מלא</label>
+                <input type="text" className="w-full border-b-4 border-black p-2 bg-transparent focus:outline-none focus:border-[#FF3366] font-brutal text-lg transition-colors" required placeholder="ישראל ישראלי" />
+              </div>
+              <div className="flex flex-col text-right">
+                <label className="font-brutal font-bold text-sm mb-2 uppercase text-black/70">טלפון אבא / אמא</label>
+                <input type="tel" className="w-full border-b-4 border-black p-2 bg-transparent focus:outline-none focus:border-[#00E5FF] font-brutal text-lg transition-colors" required placeholder="050-0000000" dir="ltr" />
+              </div>
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                type="submit"
+                className="mt-8 font-brutal font-black text-2xl bg-[#CCFF00] text-black py-4 border-4 border-black hover:bg-black hover:text-[#CCFF00] transition-colors"
+              >
+                שליחה
+              </motion.button>
+            </form>
+          </motion.div>
+        </div>
+      )}
+      
     </div>
   );
 }
