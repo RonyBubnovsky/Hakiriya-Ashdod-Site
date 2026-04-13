@@ -55,7 +55,7 @@ export default function Footer() {
            {/* The Map itself */}
            <div className="w-[180px] sm:w-[220px] aspect-square relative z-10 border-4 border-white bg-black shadow-[8px_8px_0px_0px_#FFD700] hover:shadow-[8px_8px_0px_0px_#00E5FF] transition-shadow duration-500 overflow-hidden">
              {/* Note: GoogleMap is wrapped heavily */}
-             <div className="w-full h-full grayscale contrast-125 filter group-hover:filter-none transition-all duration-500">
+             <div className="w-full h-full transition-all duration-500">
                <GoogleMap />
              </div>
            </div>
