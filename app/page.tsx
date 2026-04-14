@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const values = [
   {
@@ -38,16 +38,13 @@ export default function Home() {
   const [currentDate, setCurrentDate] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     setCurrentDate(new Date().toLocaleDateString('he-IL'));
   }, []);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
-  const yImage1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-transparent text-[#111111] overflow-x-hidden font-sans" dir="rtl">
+    <div className="relative min-h-screen bg-transparent text-[#111111] overflow-x-hidden font-sans" dir="rtl">
       
       {/* Global Transparent Background Video - Glassmorphism style */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
@@ -83,13 +80,13 @@ export default function Home() {
         
         {/* Top bar info */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-20 lg:mb-0">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.5 }}>
             <span className="font-brutal font-medium text-xs tracking-widest uppercase bg-black text-white px-4 py-2 hover:bg-[#FF3366] transition-colors cursor-default" suppressHydrationWarning>
               {currentDate || "נטען..."}
             </span>
           </motion.div>
           
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="font-brutal font-light text-sm max-w-xs text-black/60">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="font-brutal font-light text-sm max-w-xs text-black/60">
             בית ספר יסודי • אשדוד<br/>
             מובילים בחינוך ערכי וטכנולוגי
           </motion.div>
@@ -105,17 +102,17 @@ export default function Home() {
             
             {/* Added back Logo */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }} 
-              animate={{ opacity: 1, scale: 1 }} 
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }} 
               className="mb-8 w-32 h-32 md:w-48 md:h-48"
             >
                <img src="/school-logo.jpg" alt="לוגו בית חינוך הקריה" className="w-full h-full object-contain mix-blend-multiply" />
             </motion.div>
             <motion.h1 
-              initial={{ y: 50, opacity: 0 }}
+              initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.7, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
               className="font-brutal font-black text-[15vw] sm:text-[12vw] lg:text-[8rem] leading-[0.85] tracking-tight uppercase"
             >
               בית ספר<br/>
@@ -129,7 +126,7 @@ export default function Home() {
             </motion.h1>
             
             <motion.p 
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 1 }}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.75, duration: 0.7 }}
               className="font-brutal font-light text-xl md:text-3xl max-w-2xl mt-12 leading-relaxed"
             >
               העתיד מתחיל כאן. 
