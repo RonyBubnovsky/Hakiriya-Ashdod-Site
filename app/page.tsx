@@ -67,6 +67,13 @@ export default function Home() {
           position: absolute; inset: 0; pointer-events: none; z-index: 50; opacity: 0.04;
           background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\"/%3E%3C/svg%3E');
         }
+        .bg-grid {
+          background-color: #ffffff;
+          background-image: 
+            linear-gradient(rgba(0,0,0,.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,.08) 1px, transparent 1px);
+          background-size: 32px 32px;
+        }
       `}} />
       <div className="noise"></div>
 
@@ -133,7 +140,7 @@ export default function Home() {
       </section>
 
       {/* Editorial Scrolling Values */}
-      <section className="relative py-24 sm:py-32 px-6 sm:px-12 border-t-2 border-black bg-white">
+      <section className="relative py-24 sm:py-32 px-6 sm:px-12 border-t-2 border-black bg-grid">
         <div className="max-w-[1600px] mx-auto">
           
           <div className="mb-24 md:mb-32">

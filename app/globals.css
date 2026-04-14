@@ -254,3 +254,12 @@ body {
   pointer-events: none;
   z-index: 1;
 }
+
+/* ===== Grid Background ===== */
+.bg-grid {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(rgba(0,0,0,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}

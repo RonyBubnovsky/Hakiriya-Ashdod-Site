@@ -24,7 +24,7 @@ const colors = ["bg-[#FF3366]", "bg-[#00E5FF]", "bg-[#FFD700]", "bg-[#CCFF00]"];
 
 export default function MivneIrguni() {
   return (
-    <div className="relative min-h-screen bg-[#F4F4F0] text-[#111111] overflow-x-hidden font-sans" dir="rtl">
+    <div className="relative min-h-screen bg-grid text-[#111111] overflow-x-hidden font-sans" dir="rtl">
       {/* Import specific bold fonts for anti-slop aesthetic */}
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;900&display=swap');
@@ -93,7 +93,7 @@ export default function MivneIrguni() {
       </section>
 
       {/* Cards Section */}
-      <section className="py-24 sm:py-32 px-6 sm:px-12 bg-[#F4F4F0]">
+      <section className="py-24 sm:py-32 px-6 sm:px-12 bg-grid">
         <div className="max-w-[1600px] mx-auto">
            <div className="mb-20 text-right">
              <p className="font-brutal font-bold tracking-[0.1em] text-[#FF3366] uppercase mb-4">Areas of Responsibility</p>
