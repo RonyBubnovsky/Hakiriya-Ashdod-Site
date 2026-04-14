@@ -37,6 +37,7 @@ const values = [
 export default function Home() {
   const [currentDate, setCurrentDate] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
@@ -66,6 +67,13 @@ export default function Home() {
         .noise {
           position: absolute; inset: 0; pointer-events: none; z-index: 50; opacity: 0.04;
           background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\"/%3E%3C/svg%3E');
+        }
+        .bg-grid {
+          background-color: #ffffff;
+          background-image: 
+            linear-gradient(rgba(0,0,0,.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,.08) 1px, transparent 1px);
+          background-size: 32px 32px;
         }
       `}} />
       <div className="noise"></div>
@@ -133,7 +141,7 @@ export default function Home() {
       </section>
 
       {/* Editorial Scrolling Values */}
-      <section className="relative py-24 sm:py-32 px-6 sm:px-12 border-t-2 border-black bg-white">
+      <section className="relative py-24 sm:py-32 px-6 sm:px-12 border-t-2 border-black bg-grid">
         <div className="max-w-[1600px] mx-auto">
           
           <div className="mb-24 md:mb-32">
@@ -225,30 +233,58 @@ export default function Home() {
             className="w-full max-w-lg bg-[#F4F4F0] text-black p-8 sm:p-12 border-4 border-black shadow-[16px_16px_0px_#FF3366] relative"
           >
             <button 
-              onClick={() => setIsFormOpen(false)}
+              onClick={() => { setIsFormOpen(false); setIsSubmitSuccess(false); }}
               className="absolute top-4 left-4 text-2xl font-black bg-black text-white w-10 h-10 hover:bg-[#FF3366] transition-colors flex items-center justify-center pt-1"
             >
               &times;
             </button>
-            <h3 className="font-brutal font-black text-3xl sm:text-4xl mb-8 uppercase text-right">השאירו פרטים</h3>
-            <form className="flex flex-col gap-6" onSubmit={(e) => { e.preventDefault(); alert("Mock form submitted!"); setIsFormOpen(false); }}>
-              <div className="flex flex-col text-right">
-                <label className="font-brutal font-bold text-sm mb-2 uppercase text-black/70">שם מלא</label>
-                <input type="text" className="w-full border-b-4 border-black p-2 bg-transparent focus:outline-none focus:border-[#FF3366] font-brutal text-lg transition-colors" required placeholder="ישראל ישראלי" />
-              </div>
-              <div className="flex flex-col text-right">
-                <label className="font-brutal font-bold text-sm mb-2 uppercase text-black/70">טלפון אבא / אמא</label>
-                <input type="tel" className="w-full border-b-4 border-black p-2 bg-transparent focus:outline-none focus:border-[#00E5FF] font-brutal text-lg transition-colors" required placeholder="050-0000000" dir="ltr" />
-              </div>
-              <motion.button 
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                type="submit"
-                className="mt-8 font-brutal font-black text-2xl bg-[#CCFF00] text-black py-4 border-4 border-black hover:bg-black hover:text-[#CCFF00] transition-colors"
+            
+            {isSubmitSuccess ? (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex flex-col items-center justify-center py-8 text-center"
               >
-                שליחה
-              </motion.button>
-            </form>
+                <div className="w-24 h-24 bg-[#CCFF00] border-4 border-black flex items-center justify-center rounded-none shadow-[8px_8px_0px_#000] mb-8 font-brutal text-5xl font-black">
+                  ✓
+                </div>
+                <h3 className="font-brutal font-black text-4xl mb-4 uppercase">נשלח בהצלחה!</h3>
+                <p className="font-brutal font-bold text-xl text-black/70 mb-8">ניצור קשר בהקדם.</p>
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => { setIsSubmitSuccess(false); setIsFormOpen(false); }}
+                  className="font-brutal font-black text-xl bg-black text-white px-8 py-3 border-4 border-black hover:bg-[#FF3366] transition-colors shadow-[6px_6px_0px_#00E5FF]"
+                >
+                  סגירה
+                </motion.button>
+              </motion.div>
+            ) : (
+              <>
+                <h3 className="font-brutal font-black text-3xl sm:text-4xl mb-8 uppercase text-right">השאירו פרטים</h3>
+                <form className="flex flex-col gap-6" onSubmit={(e) => { 
+                  e.preventDefault(); 
+                  setIsSubmitSuccess(true); 
+                }}>
+                  <div className="flex flex-col text-right">
+                    <label className="font-brutal font-bold text-sm mb-2 uppercase text-black/70">שם מלא</label>
+                    <input type="text" className="w-full border-b-4 border-black p-2 bg-transparent focus:outline-none focus:border-[#FF3366] font-brutal text-lg transition-colors" required placeholder="ישראל ישראלי" />
+                  </div>
+                  <div className="flex flex-col text-right">
+                    <label className="font-brutal font-bold text-sm mb-2 uppercase text-black/70">טלפון אבא / אמא</label>
+                    <input type="tel" className="w-full border-b-4 border-black p-2 bg-transparent focus:outline-none focus:border-[#00E5FF] font-brutal text-lg transition-colors" required placeholder="050-0000000" dir="ltr" />
+                  </div>
+                  <motion.button 
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    type="submit"
+                    className="mt-8 font-brutal font-black text-2xl bg-[#CCFF00] text-black py-4 border-4 border-black hover:bg-black hover:text-[#CCFF00] transition-colors"
+                  >
+                    שליחה
+                  </motion.button>
+                </form>
+              </>
+            )}
           </motion.div>
         </div>
       )}

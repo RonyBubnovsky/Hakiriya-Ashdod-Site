@@ -50,12 +50,12 @@ export default function Footer() {
            {/* Decorative bg text */}
            <div className="absolute font-brutal font-black text-white opacity-5 text-[6rem] leading-none pointer-events-none select-none top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap">
              MAP
-           </div>
+          </div>
            
            {/* The Map itself */}
-           <div className="w-[180px] sm:w-[220px] aspect-square relative z-10 border-4 border-white bg-black shadow-[8px_8px_0px_0px_#FFD700] hover:shadow-[8px_8px_0px_0px_#00E5FF] transition-shadow duration-500 overflow-hidden">
+           <div className="w-[180px] sm:w-[220px] aspect-square relative z-10 border-4 border-white bg-black overflow-hidden hover:scale-105 transition-transform duration-500">
              {/* Note: GoogleMap is wrapped heavily */}
-             <div className="w-full h-full transition-all duration-500">
+             <div className="w-full h-full">
                <GoogleMap />
              </div>
            </div>
