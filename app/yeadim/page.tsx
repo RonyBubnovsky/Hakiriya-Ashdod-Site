@@ -139,8 +139,8 @@ export default function Yeadim() {
 
       {/* CLOSING QUOTE */}
       <section className="py-32 px-6 bg-[#111] text-center relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] flex justify-center items-center opacity-[0.05] pointer-events-none">
-          <span className="font-brutal font-black text-[25vw] leading-none text-white select-none whitespace-nowrap">ASPIRE</span>
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.05] pointer-events-none">
+          <span className="font-brutal font-black text-[14vw] sm:text-[16vw] lg:text-[18vw] leading-none text-white select-none whitespace-nowrap w-full text-center">ASPIRE</span>
         </div>
 
         <motion.div

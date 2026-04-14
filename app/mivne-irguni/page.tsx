@@ -135,7 +135,7 @@ export default function MivneIrguni() {
       <section className="py-40 px-6 text-center border-t-8 border-black bg-[#FF3366] overflow-hidden relative">
         {/* Giant background text */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.08]">
-           <span className="font-brutal font-black text-[20vw] whitespace-nowrap text-white">
+           <span className="font-brutal font-black text-[12vw] sm:text-[14vw] lg:text-[15vw] whitespace-nowrap text-white w-full text-center">
              TOGETHER
            </span>
         </div>

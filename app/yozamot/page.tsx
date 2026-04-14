@@ -156,8 +156,8 @@ export default function Yozamot() {
 
       {/* CLOSING / INNOVATION */}
       <section className="py-32 px-6 bg-[#00E5FF] text-center relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] flex justify-center items-center opacity-[0.2] mix-blend-overlay pointer-events-none">
-          <span className="font-brutal font-black text-[25vw] leading-none text-white select-none whitespace-nowrap">INNOVATION</span>
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.2] mix-blend-overlay pointer-events-none">
+          <span className="font-brutal font-black text-[12vw] sm:text-[14vw] lg:text-[15vw] leading-none text-white select-none whitespace-nowrap w-full text-center">INNOVATION</span>
         </div>
 
         <motion.div
