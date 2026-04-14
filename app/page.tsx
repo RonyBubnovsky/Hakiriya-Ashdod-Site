@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const values = [
   {
@@ -38,16 +38,13 @@ export default function Home() {
   const [currentDate, setCurrentDate] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     setCurrentDate(new Date().toLocaleDateString('he-IL'));
   }, []);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
-  const yImage1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-transparent text-[#111111] overflow-x-hidden font-sans" dir="rtl">
+    <div className="relative min-h-screen bg-transparent text-[#111111] overflow-x-hidden font-sans" dir="rtl">
       
       {/* Global Transparent Background Video - Glassmorphism style */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
